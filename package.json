@@ -7,5 +7,31 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.3",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "express-messages": "*",
+    "express-partials": "^0.3.0",
+    "express-validator": "*",
+    "jade": "^1.11.0",
+    "mongodb": "*",
+    "mongoose": "^4.13.0",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-local": "*",
+    "passport-http": "*",
+    "pug": "^2.0.0-rc.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "serve-favicon": "^2.4.5",
+    "webpack": "^3.8.1"
+  }
 }
