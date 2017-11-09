@@ -1,39 +1,31 @@
 'use strict'; // right?
 var mongoose = require('mongoose');
+var db = require('../server.js')
 
 var Schema = mongoose.Schema;
 
 var algorithmSchema = new Schema({
-
   name: {
     type: String, 
-  },
+    required: true, 
+  }, 
 
   prompt: {
     type: String, 
-  }, 
-
-  pointValue: {
-    type: Number, 
-  }, 
-
-  levelRequired: {
-    type: Number, 
-  }, 
+  },  
 
   seedCode: {
     type: String,
+    default: "\/\/ your code here"
   }, 
 
-  // This is going to reference a file system within 
   testingSuite: {
-    type: String,
+    type: String,  
   }, 
-
-  // skeleton for submissionHistory: 
 
   submissionHistory: {
     type: Array, 
+    default: [], 
   }, 
 
 });

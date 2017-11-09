@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser');
@@ -15,6 +14,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
 
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -22,6 +22,12 @@ db.once('open', function () {
 })
 
 var routes = require('./routes/Routes.js'); //importing route
+
+// registering the routes and the model must happen before the routes
+algos = require('./models/algorithmSchema.js'); // registering the models.
+games = require('./models/gameSchema.js'); 
+users = require('./models/userSchema.js'); 
+
 
 var DB_CREDENTIALS = require('./keys/mongoDBCredentials.js');
 var uri = 'mongodb://' + DB_CREDENTIALS;
@@ -37,100 +43,53 @@ app = express();
 
 app.use(express.static(__dirname +'/../client/public'))
 
+//handle session
+// app.use(session({
+// 	secret: 'secret',
+// 	saveUninitialized: true,
+// 	resave: true 
+// }))
 
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false }));
+app.use(bodyParser.urlencoded({extended: true }));
 app.use(cookieParser());
-//handel session
-app.use(session({
-	secret: 'secret',
-	saveUninitialized: true,
-	resave: true 
-}))
 
 
 //Passport
-app.use(passport.initialize());
-app.use(passport.session()); 
+// app.use(passport.initialize());
+// app.use(passport.session()); 
 
 //Validator
- app.use(expressValidator({
-	 errorFormatter: function(param,msg, value) {
-		 var namespace = param.split('.')
-		 , root 	= namespace.shift()
-		 , formParam = root;
+ // app.use(expressValidator({
+	//  errorFormatter: function(param,msg, value) {
+	// 	 var namespace = param.split('.')
+	// 	 , root 	= namespace.shift()
+	// 	 , formParam = root;
 
-	while(namespace.length){
-		formParam += '[' + namespace.shift() + ']';
-	}
-	return{
-		param: formParam,
-		msg  : msg,
-		value: value	
-	};
-   }
- }));
-
- app.use(require('connect-flash')());
- app.use(function(req, res, next ){
-	 res.locals.messages = require('express-messages')(req,res);
-	 next();
- });
-
+	// while(namespace.length){
+	// 	formParam += '[' + namespace.shift() + ']';
+	// }
+	// return{
+	// 	param: formParam,
+	// 	msg  : msg,
+	// 	value: value	
+	// };
+ //   }
+ // }));
 
 
 //Middleware for sessions
-
 app.use(express.static(__dirname +'/../client/public'))
+ // app.use(require('connect-flash')());
+ // app.use(function(req, res, next ){
+	//  res.locals.messages = require('express-messages')(req,res);
+	//  next();
+ // });
 
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false }));
-app.use(cookieParser());
-//handel session
-app.use(session({
-	secret: 'secret',
-	saveUninitialized: true,
-	resave: true 
-}))
-
-//Passport
-app.use(passport.initialize());
-app.use(passport.session()); 
-
-//Validator
- app.use(expressValidator({
-	 errorFormatter: function(param,msg, value) {
-		 var namespace = param.split('.')
-		 , root 	= namespace.shift()
-		 , formParam = root;
-
-	while(namespace.length){
-		formParam += '[' + namespace.shift() + ']';
-	}
-	return{
-		param: formParam,
-		msg  : msg,
-		value: value	
-	};
-   }
- }));
-
- app.use(require('connect-flash')());
- app.use(function(req, res, next ){
-	 res.locals.messages = require('express-messages')(req,res);
-	 next();
- });
-
-
-
-//Middleware for sessions
-
-
-
+routes(app); //register the route
 
 app.get('*', (req,res) =>{
 	res.sendFile(__dirname +'/../client/public/index.html')
@@ -138,22 +97,5 @@ app.get('*', (req,res) =>{
 
 port = process.env.PORT || 3000; 
 app.listen(port);
-
-// registering the routes and the model must happen before the routes
-algos = require('./models/algorithmSchema.js'); // registering the models.
-games = require('./models/gameSchema.js'); 
-users = require('./models/userSchema.js'); 
-
-
-// boilerplate from HR sprint. Setting extended to true allows parsing of nested objects. 
-app.use(bodyParser.urlencoded({extended: true}));
-// sets the default parser to .json?
-routes(app); //register the route
-app.get('/', (req,res) =>{
-	res.send({hi: 'Hello'})
-})
-
-
-
 
 console.log('betf listening on: ' + port);

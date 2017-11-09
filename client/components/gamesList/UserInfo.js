@@ -1,4 +1,7 @@
-class UserInfo extends React.Component {
+var React = require('React');
+var axios = require('axios');
+
+export class UserInfo extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -8,8 +11,10 @@ class UserInfo extends React.Component {
 			<div>
 				<div> Username: {this.props.username} </div>
 				<div> Points: {this.props.points} </div>
-				<div> Level: {this.props.level} <div>
+				<div> Level: {this.props.level} </div>
 			</div>
 		)
 	}
 }
+
+export default UserInfo; 

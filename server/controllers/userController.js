@@ -1,6 +1,8 @@
 'use strict'; // ?
 var mongoose = require('mongoose');
 var Users = mongoose.model('userSchema');
+var bcrypt = require('bcrypt');
+const saltRounds = 10; // this is 'bcrypt'
 
 // get '/users'
 exports.getAllUsers = function(req, res) {
@@ -10,15 +12,58 @@ exports.getAllUsers = function(req, res) {
   })
 };
 
+// THIS AUTHENTICATION SHOULD BE REWRITTEN WITH PASSPORT!
+// THIS AUTHENTICATION SHOULD BE REWRITTEN TO INCLUDE SESSIONS!
+
 // post '/users'
 exports.addAUser = function(req, res) {
 	// this will take in a body that has a username and password. 
+  // need to add authntication to this.
+
+  // check to see if the username 
+
   var newUser = new Users(req.body);
+  newUser.set('username', 'seamusTest')
+
+
+  console.log('username', newUser.username)
+  console.log('this is req.body in the routes file', req.body)
+  newUser.authenStatus = true; 
   newUser.save(function(err, newUser) {
     if (err) {res.send(err)};
-    res.send(newUser);
+    res.send(newUser)
   });
 }; 
+
+// post '/users/auth'
+exports.authUser = function(req, res) {
+  console.log('what comes into authUser', req.body)
+  Users.find({username : req.body.username}, (err, match) => {
+    if (err) {
+      console.error('a res.send() with an error was sent to handleAdd')
+      res.send('there was an error')
+    } else {
+      console.log('this is the match format: ', match) 
+      // if there were no matching usernames, respond with authenStatus = false. 
+      if (match.length === 0) {
+        match = {}; 
+        match.authenStatus = false; 
+        res.send(match)
+      } else if (match.length === 1) {
+        console.log('there was a match!')
+        match = JSON.parse(JSON.stringify(match[0])); 
+        // do the bcrypt password check. 
+        match.authenStatus = true; 
+        console.log('match', match)
+        res.send(match)
+      }
+
+    }
+  })
+}
+
+
+
 
 // get '/users/:username'
 exports.getSpecificUserData = function(req, res) {
