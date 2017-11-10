@@ -5,7 +5,6 @@ var jsStringEscape = require('js-string-escape')
 var mongoose = require('mongoose');
 var Algo = mongoose.model('algorithmSchema');
 var fs = require('fs');
-var bubbleSort = require('../data/bubblesort.js');
 var cmd=require('node-cmd');
 
 
@@ -36,7 +35,7 @@ exports.getSubmissionEvaluation = function(req,res){
 	// console.log(req.body);
 
 	//pulling data off of request body
-	var submission = req.body.value;
+	var submission = req.body.value || '';
 	var test = req.body.testSuite;
 	var algoId = req.body.algo;
 
@@ -48,7 +47,6 @@ exports.getSubmissionEvaluation = function(req,res){
 	Algo.findById(algoId, (err, algo) => {
 		if (err) throw(err); 
 		var functionName = algo.functionName;
-		//var test = allAlgos[0].testingSuite;//TO REMOVE ONCE values are available off of req.body
 
 		writeTestToFile(test, functionName);
 		writeSubmissionToFile(submission, functionName);

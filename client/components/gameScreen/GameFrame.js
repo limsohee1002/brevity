@@ -106,7 +106,7 @@ export class GameFrame extends React.Component {
 
 					<Prompt promptdetails={this.state.prompt} name={this.props.gameObject.name} />
 					<br/>
-					<CodeEntryForm seedCode = {this.state.seedCode} test={this.state.tests}
+					<CodeEntryForm seedCode = {this.state.seedCode} testSuite={this.state.testSuite}
 					 algo={this.props.gameObject.algorithmID} /> 
 				</div> 
 				<div className="col s3 container">
