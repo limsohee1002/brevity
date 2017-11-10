@@ -1,13 +1,15 @@
-module.exports = function bubbleSort(array, sorted = false, runTimes = 0) {
-	if (sorted) {return array}
-	sorted = true; 
-	for (let i = 0; i < array.length - runTimes - 1; i++) {
-		if (array[i] > array[i + 1]) {
-			var temp = array[i + 1]
-			array[i + 1] = array[i]
-			array[i] = temp; 
-			sorted = false
-		}
-	}
-	return bubbleSort(array, sorted, runTimes)
-};
+module.exports = commonCharacters = function(string1, string2){
+  let res = '';
+  const hash = {};
+  string1 = string1.replace(/ /g, '')
+  // hash table to store chars we've seen
+  // iterate over string1
+  for (var i = 0; i < string1.length; i++) {
+    var char = string1[i];
+    if (!hash[char] && string2.includes(char)) {
+      res += char;
+      hash[char] = true;
+    }
+  }
+  return res;
+}

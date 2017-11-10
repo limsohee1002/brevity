@@ -10,8 +10,10 @@ export class UserInfo extends React.Component {
 	//the props are coming from the GamesView
 	render(){
 		return(
-			<div>
-				<div> Username: {this.props.username} Points: {this.props.points} Level: {this.props.level}</div>
+			<div className = "row">
+				 <h5 className = "col s4"> Username: {this.props.username} </h5>
+				 <h5 className = "col s4"> Points: {this.props.points} </h5>
+				 <h5 className = "col s4"> Level: {this.props.level} </h5>
 			</div>
 		)
 	}

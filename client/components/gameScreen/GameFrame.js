@@ -96,6 +96,7 @@ export class GameFrame extends React.Component {
 	}	
 
 	render(props){
+		console.log('this.state.testSuite', this.state.testSuite)
 		// loading screen shows until state is updated completely. 
 		return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
 		(<div> loading gameFrame... </div>) : 
@@ -103,19 +104,16 @@ export class GameFrame extends React.Component {
 			 <div className="container">
 				<div className="row">
 				<div className="col s9 container ">
-
 					<Prompt promptdetails={this.state.prompt} name={this.props.gameObject.name} />
 					<br/>
-					<CodeEntryForm seedCode = {this.state.seedCode} test={this.state.tests}
+					<CodeEntryForm seedCode = {this.state.seedCode} testSuite={this.state.testSuite}
 					 algo={this.props.gameObject.algorithmID} /> 
 				</div> 
 				<div className="col s3 container">
 					<Timer/>
 				</div>
-
-
 						<div className="inline-block-div"> 
-							{/*
+							{/* We aren't using any of these, but you should be able to. 
 							<Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>
 							<RunXonsoleButton toggleRunXonsoleStatus={this.toggleRunXonsoleStatus}/>  
 						*/}	

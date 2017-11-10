@@ -16,14 +16,14 @@ render(){
 		return (
 			<div >
 		        <div > 
-                    <ReactCountdownClock 
-                            seconds={500}
-                            color="#FF0000"
-                            alpha={0.9}
-                            size={100}
-                            onComplete={this.props.testFun}
-                    /> 
-                </div>
+                  <ReactCountdownClock 
+                          seconds={500}
+                          color="#FF0000"
+                          alpha={0.9}
+                          size={100}
+                          onComplete={this.props.testFun}
+                  /> 
+              </div>
 			</div>
 		)
 	}

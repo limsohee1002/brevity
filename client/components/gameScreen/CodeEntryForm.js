@@ -18,23 +18,26 @@ export class CodeEntryForm extends React.Component {
     super(props);
     this.state={
       value: "",
-      reset : "", 
-      // code: 
       submitted : false, 
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this)
   }
-  onChange(newValue,e) {
-    event.preventDefault();
+
+  // You may be tempted to think I have this backwards and the event should come
+  // first, but you would be wrong. This runs everytime the code in the editor
+  // changes it does not use setState({}) because doing so would cause the page to 
+  // re-render. 
+  onChange(newValue, e) {
     const editor = this.ace.editor; // The editor object is from Ace's API
     this.state.value = editor.getValue()
-    console.log('the value in onChange', this.state.value)
-    // this.state.value is updating
-    // this.setState({reset : editor})
-    
   }
 
+  // this onSubmit is passed down to the submitButton, which triggers the state 
+  // of CodeEntryForm to change when the button is pressed. This stateChange 
+  // triggers a rerender of the page, which clears the code in the editor but also 
+  // rerenders the SubmitButton with the new this.state.value, which has been updating
+  // 
   onSubmit(cb) {
     this.setState({submitted : true}, cb)
   }
@@ -52,21 +55,18 @@ export class CodeEntryForm extends React.Component {
             onChange={this.onChange}
             value = {this.props.seedCode}
             defaultValue = {this.props.seedCode}
-            style={{ height: '100px' }}
+            style={{ height: '400px' }}
             ref={instance => { this.ace = instance; }} // Let's put things into scope
             enableBasicAutocompletion={true}
             enableLiveAutocompletion={true}
             enableSnippets={true}
           />
         </div>
-
-
         <SubmitButton 
          submit={this.onSubmit}
          value={this.state.value}
          testSuite={this.props.testSuite} 
          algo={this.props.algo}
-         reset={this.state.reset}
         />
       </div>
     ) : (<div> loading... </div>)

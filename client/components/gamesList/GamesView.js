@@ -9,7 +9,6 @@ import GamesList from './GamesList.js';
 export class GamesView extends React.Component {
 	constructor(props) {
 		super(props);
-
 		//sets default/dummy values for points and level
 		this.state = {
 			points: 1000,
@@ -33,8 +32,8 @@ export class GamesView extends React.Component {
 	render(){
 		return (
 			<div>
-				<div className="card-panel red lighten-4" >
-				<UserInfo username={this.props.username} points={this.state.points} level={this.state.level}/>
+				<div className=" red lighten-4 center" >
+				<UserInfo username={this.props.user} points={this.state.points} level={this.state.level}/>
 				</div>
 				<GamesList gameslist={this.state.games} username={this.props.username}/>
 			</div>
