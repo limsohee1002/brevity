@@ -5,15 +5,15 @@ var jsStringEscape = require('js-string-escape')
 var mongoose = require('mongoose');
 var Algo = mongoose.model('algorithmSchema');
 var fs = require('fs');
-var cmd=require('node-cmd');
+var cmd = require('node-cmd');
 
 
 //Function to write the mocha tests (test.js) for a given game to a 'data' folder on the server.
 function writeTestToFile (test, functionName){
   /*The below line adds necessary 'require' statements that are necessary to execute the mocha tests. 
   This includes mocha, chai, and the js file for the code submission by the user  lol*/
-  fs.writeFileSync('./data/test.js',`var ${functionName.split("").reverse().slice(2).reverse().join("")} = require('./submission.js')\nvar chai = require('chai'); \nvar mocha = require('mocha');\n`)
-  fs.appendFileSync('./data/test.js', test);
+  fs.writeFileSync('./server/data/test.js',`var ${functionName.split("").reverse().slice(2).reverse().join("")} = require('./submission.js')\nvar chai = require('chai'); \nvar mocha = require('mocha');\n`);
+  fs.appendFileSync('./server/data/test.js', test);
   console.log('The Test file has been saved!');
 }
 
@@ -21,8 +21,8 @@ function writeTestToFile (test, functionName){
 function writeSubmissionToFile(submission, functionName){
   /*The below line adds an exports statement to the submission file, so that the code can be tested by the tests in test.js. 
   This includes mocha, chai, and the js file for the code submission by the user */
-  fs.writeFileSync('./data/submission.js', `module.exports = `);
-  fs.appendFileSync('./data/submission.js', submission);
+  fs.writeFileSync('./server/data/submission.js', `module.exports = `);
+  fs.appendFileSync('./server/data/submission.js', submission);
   console.log('The Submission file has been saved!');
 }
 
@@ -63,7 +63,7 @@ exports.getSubmissionEvaluation = function(req,res){
       //Reg Ex to find the number of tests that are passing and failing;
       var passing = data[/passing/.exec(data).index - 2];
       var regFailing = /failing/.exec(data) || false
-      var failing = regFailing ? data[regFailing.index - 2] : "0";
+      var failing = regFailing ? data[regFailing.index - 2] : '0';
 
       //create object to return back for the post request
       var returnObj = {'passing': passing, 
