@@ -4,7 +4,7 @@ var Algo = mongoose.model('algorithmSchema');
 
 // get '/algos'
 exports.getAllAlgorithms = function(req, res) {
-	console.log('run')
+	// finding an empty parameter returns all algos. 
   Algo.find({}, (err, allAlgos) => {
   	console.log("All Algos = " + JSON.stringify(allAlgos));
     if (err) console.error(err); 
@@ -15,7 +15,7 @@ exports.getAllAlgorithms = function(req, res) {
 // post '/algos'
 exports.addAlgorithm = function(req, res) {
 	// this will take in a body that has a prompt, summary, pointValue, 
-	// required level and testing suite.
+	// Check to see what has defaults before spamming postman with complicated requests. 
   var newAlgo = new Algo(req.body);
   newAlgo.save(function(err, newAlgo) {
     if (err) {res.send(err)};
@@ -27,8 +27,7 @@ exports.addAlgorithm = function(req, res) {
 exports.getSpecifiedAlgorithm = function(req, res) {
 	// console.log('the id on the req', req.params.id)
 	Algo.findById(req.params.id, function(err, algo) {
-		// console.log('this is the algorithm object that is got by the /algos/:id route:', algo)
-		// algo is coming back complete. 
+		// the entire algorithm object will come back. 
     if (err) res.send(err)
     res.send(algo);
   });
@@ -47,6 +46,9 @@ exports.updateSubmissionHistory = function(req, res) {
 
 // put /algos/:id/:property/:newValue'
 exports.updateAlgoProperty = function(req, res) {
+	// this takes a function at a given :id and a specified :property
+	// and updates that :property with the :newValue. This has not been tested
+	// to be working for non-empty properties, but does work for empty properties. 
 	Algo.findById(req.params.id, (err, algo) => {
 		let targetProp = req.params.property
 		algo.set(targetProp, req.params.newValue)
@@ -60,6 +62,7 @@ exports.updateAlgoProperty = function(req, res) {
 
 // delete '/algos/:id'
 exports.deleteAlgorithm = (req, res) => {
+	// This has not been tested. 
 	Algo.remove (
 		{_id : req.params.id}, 
 		(err, algo) => {

@@ -8,6 +8,7 @@
 
 
 module.exports = function(app) {
+  // these just align each prefix to a file. 
   var user = require('../controllers/userController.js');
   var game = require('../controllers/gameController.js');
   var test = require('../controllers/testController.js');

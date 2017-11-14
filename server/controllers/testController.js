@@ -58,7 +58,7 @@ exports.getSubmissionEvaluation = function(req,res){
 		("npm install -g mocha").
 		*/
 		cmd.get('cd data && mocha', function(err, data, stderr){
-			console.log("DATATATAT", data)
+			// console.log("DATA", data)
 
 			//Reg Ex to find the number of tests that are passing and failing;
 			var passing = data[/passing/.exec(data).index - 2];

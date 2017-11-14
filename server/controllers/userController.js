@@ -20,6 +20,9 @@ exports.addAUser = function(req, res) {
   // this adds a user to the database. 
   Users.find({}, (err, allUsers) => {
     // handle bad usernames and passwords: 
+    // the landing page handles all of these error objects by checking if there
+    // is a property with the key 'error'. If there is, access is not granted and 
+    // the error message shows up. 
     let allUsernames = allUsers.map((obj) => obj.username)
     if (allUsernames.includes(req.body.username)) {
       res.send({error : 'username taken!'})
@@ -38,8 +41,7 @@ exports.addAUser = function(req, res) {
         var newUser = new Users(req.body)
         newUser.save(function(err, newUser) {
           if (err) {res.send(err)};
-          // landing needs to take this or the error object
-          // and turn it into an appropriate view. 
+          // landing takes this err and rethrows it. 
           res.send(newUser)
         })
       })
@@ -49,7 +51,10 @@ exports.addAUser = function(req, res) {
 
 // post '/users/auth'
 exports.authUser = function(req, res) {
-  console.log('what comes into authUser', req.body)
+  // console.log('what comes into authUser', req.body)
+  // match will return an array. Beacuse there will always only be one match
+  // (because of the rules stated in addAUser above), to play with the match, 
+  // you will just need to do match[0]
   Users.find({username : req.body.username}, (err, match) => {
     if (err) {
       console.error('a res.send() with an error was sent to handleAdd')
@@ -77,7 +82,7 @@ exports.authUser = function(req, res) {
 }
 
 
-// get '/users/:username'
+// get '/users/:username' //this has not been tested. 
 exports.getSpecificUserData = function(req, res) {
   Users.findById(req.params.username, function(err, user) {
     if (err) {res.send(err)};
@@ -85,7 +90,7 @@ exports.getSpecificUserData = function(req, res) {
   });
 }; 
 
-// put '/users/:username'
+// put '/users/:username' //this has not been tested. 
 exports.updateUserData = function(req, res) {
 	// this will be used on the profile page for users to update a user's profile 
 	// with a profile picture and other information about that user. 
@@ -95,7 +100,7 @@ exports.updateUserData = function(req, res) {
   });
 }
 
-// delete '/users/:username'
+// delete '/users/:username' //this has not been tested. 
 exports.deleteUser = function(req, res) {
   Users.remove (
     {username : req.params.username}, 

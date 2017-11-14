@@ -4,6 +4,9 @@ var React = require('React');
 var axios = require('axios');
 import GameFrame from '../gameScreen/GameFrame.js'
 
+// Gamesview -> GamesList -> Game
+//     \--> UserInfo
+
 export class Game extends React.Component {
 	constructor(props) {
 		super(props);
@@ -14,7 +17,6 @@ export class Game extends React.Component {
 
 //upon click of a game in the games list, the "rendered" state variable will be changed between false and true.
 	handleClick (){
-		console.log('this is getting clicked')
 		this.setState({
 	 		rendered : !this.state.rendered
 		})
@@ -25,7 +27,7 @@ export class Game extends React.Component {
 		// console.log('this is the value of rendered', this.state.rendered)
 		return (!this.state.rendered) ? 
 		(
-		<div onClick= {this.handleClick.bind(this)}  >{this.props.game.name}</div>) :
+		<div onClick= {this.handleClick.bind(this)} >{this.props.game.name}</div>) :
 		(<GameFrame gameObject = {this.props.game}/>)
 	};
 }

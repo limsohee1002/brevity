@@ -6,6 +6,9 @@ var axios = require('axios');
 import UserInfo from './UserInfo.js';
 import GamesList from './GamesList.js';
 
+// Gamesview -> GamesList -> Game
+//     \--> UserInfo
+
 export class GamesView extends React.Component {
 	constructor(props) {
 		super(props);

@@ -13,6 +13,16 @@ import 'brace/snippets/javascript';
 import 'brace/ext/language_tools';
 import 'brace/theme/monokai'
 
+// Recieves props from: 
+  // GameFrame, Submit Button, (gets state set by function sent to SubmitButton)
+// Gives props to: 
+  // Submit Button 
+
+
+// I would highly recommend against making any changes to this file. 
+// ReactAce is very difficult to work with and you may get stuck down a 
+// rabbit hole that is not worth your time. 
+
 export class CodeEntryForm extends React.Component {
   constructor(props) {
     super(props);
@@ -37,13 +47,12 @@ export class CodeEntryForm extends React.Component {
   // of CodeEntryForm to change when the button is pressed. This stateChange 
   // triggers a rerender of the page, which clears the code in the editor but also 
   // rerenders the SubmitButton with the new this.state.value, which has been updating
-  // 
   onSubmit(cb) {
     this.setState({submitted : true}, cb)
   }
 
   render() {
-  console.log('this.props.testSuite in CodeEntryForm', this.props.testSuite)
+  // console.log('this.props.testSuite in CodeEntryForm', this.props.testSuite)
   // this displays 'loading...' until the seedcode has loaded from the gameFrame. 
   return (this.props.seedCode !== null) ? 
     (<div>
@@ -62,6 +71,7 @@ export class CodeEntryForm extends React.Component {
             enableSnippets={true}
           />
         </div>
+      {/* uhh... this could probably in this file. */}
         <SubmitButton 
          submit={this.onSubmit}
          value={this.state.value}

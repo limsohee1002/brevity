@@ -5,6 +5,7 @@ var Games = mongoose.model('gameSchema');
 
 // 'get /games' 
 exports.getAllGames = function(req, res) {
+  // empty search params returns all games. 
   Games.find({}, (err, data) => {
     if (err) console.error(err); 
     res.send(data); 
@@ -23,6 +24,7 @@ exports.addAGame = function(req, res) {
 
 // get 'games/:id'
 exports.updateGame = function(req, res) {
+  // updates the game with the given :id
   Games.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, games) {
     if (err) {res.send(err)};
     res.send(games);
@@ -40,6 +42,7 @@ exports.getAGame = function(req, res) {
 
 // delete '/games:id'
 exports.deleteGame = function(req, res) {
+  // deletes a game and console.logs that it was deleted. 
   Games.remove (
     {id : req.params.id}, 
     (err, games) => {
