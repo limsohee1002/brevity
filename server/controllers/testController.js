@@ -45,34 +45,34 @@ exports.getSubmissionEvaluation = function(req,res){
 
   //Using the algo ID from the request, we get the function name, call functions to write the test and submission files, and run the mocha executable against the tests for the algorithm (along with the user code submission)
   Algo.findById(algoId, (err, algo) => {
-    if (err) throw(err); 
+    if (err) { throw(err); }
     var functionName = algo.functionName;
 
     writeTestToFile(test, functionName);
     writeSubmissionToFile(submission, functionName);
 
-    
     /*given that the server is running in the server folder, 
     we change directory to the data folder and run mocha
     Pre-requisite: Mocha must be installed globally in order for this to work
     ("npm install -g mocha").
     */
-    cmd.get('cd data && mocha', function(err, data, stderr){
+    cmd.get('cd server/data && mocha', function(err, data, stderr) {
       // console.log("DATA", data)
 
-      //Reg Ex to find the number of tests that are passing and failing;
+      // RegExp to find the number of tests that are passing and failing;
+      console.log('data', data);
       var passing = data[/passing/.exec(data).index - 2];
       var regFailing = /failing/.exec(data) || false
       var failing = regFailing ? data[regFailing.index - 2] : '0';
 
       //create object to return back for the post request
-      var returnObj = {'passing': passing, 
-               'failing': failing,
-               'testResults': data //this is a printout from mocha with the details of the passing and failing tests
-              }
+      var returnObj = {
+        'passing': passing, 
+        'failing': failing,
+        'testResults': data //this is a printout from mocha with the details of the passing and failing tests
+      }
 
-            res.send(returnObj);
-        });
+      res.send(returnObj);
+    });
   });
-
 }
