@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-	console.log('mongo server loaded')
+  console.log('mongo server loaded')
 })
 
 var routes = require('./routes/Routes.js'); //importing route

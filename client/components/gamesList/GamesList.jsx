@@ -8,27 +8,27 @@ import Game from './Game.jsx';
 //     \--> UserInfo
 
 export class GamesList extends React.Component{
-	constructor(props){
-		super(props);
-	}
+  constructor(props){
+    super(props);
+  }
 
 //renders each game that is returned by the '/games' route(called from GamesView.js). 
 //The props are coming from the GamesView
-	render(){
-		return (
-			<div>
-				<h5> Games </h5>
-					<div >
-						{this.props.gameslist.map(function(game){
-							<br/>
-							return <div className="z-depth-4" >
-							 <Game game={game} /></div>
-							 
-						})}
-					</div>
-			</div>
-		)
-	}
+  render(){
+    return (
+      <div>
+        <h5> Games </h5>
+          <div >
+            {this.props.gameslist.map(function(game){
+              <br/>
+              return <div className="z-depth-4" >
+               <Game game={game} /></div>
+               
+            })}
+          </div>
+      </div>
+    )
+  }
 }
 
 export default GamesList; 

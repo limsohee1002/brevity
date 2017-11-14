@@ -92,8 +92,8 @@ exports.getSpecificUserData = function(req, res) {
 
 // put '/users/:username' //this has not been tested. 
 exports.updateUserData = function(req, res) {
-	// this will be used on the profile page for users to update a user's profile 
-	// with a profile picture and other information about that user. 
+  // this will be used on the profile page for users to update a user's profile 
+  // with a profile picture and other information about that user. 
   Users.findOneAndUpdate({username: req.params.username}, req.body, {new: true}, function(err, user) {
     if (err) {res.send(err)};
     res.send(user);

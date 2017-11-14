@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Lander from './components/landing/landing.jsx';
+import Lander from './components/landing/Landing.jsx';
 import GamesView from './components/gamesList/GamesView.jsx'
 //all components will be attached to this Page component. 
 //Page component will be rendered to the html file
