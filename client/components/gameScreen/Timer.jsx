@@ -7,29 +7,29 @@ import CodeEntryForm from './CodeEntryForm.jsx';
 import SubmitButton from './SubmitButton.jsx';
 
 // Recieves props from: 
-	// nowhere.
+  // nowhere.
 // Gives props to: 
-	// none, but could be the submitButton. 
+  // none, but could be the submitButton. 
 export class Timer extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 }
 
 render(){
-		return (
-			<div >
-	      <div > 
-	          <ReactCountdownClock 
-	            seconds={500}
-	            color="#FF0000"
-	            alpha={0.9}
-	            size={100}
-	            onComplete={this.props.testFun}
-	          /> 
-	       </div>
-			</div>
-		)
-	}
+    return (
+      <div >
+        <div > 
+            <ReactCountdownClock 
+              seconds={500}
+              color="#FF0000"
+              alpha={0.9}
+              size={100}
+              onComplete={this.props.testFun}
+            /> 
+         </div>
+      </div>
+    )
+  }
 }
 
 export default Timer;

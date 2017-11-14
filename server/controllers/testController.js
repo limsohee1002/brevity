@@ -10,69 +10,69 @@ var cmd=require('node-cmd');
 
 //Function to write the mocha tests (test.js) for a given game to a 'data' folder on the server.
 function writeTestToFile (test, functionName){
-	/*The below line adds necessary 'require' statements that are necessary to execute the mocha tests. 
-	This includes mocha, chai, and the js file for the code submission by the user  lol*/
-	fs.writeFileSync('./data/test.js',`var ${functionName.split("").reverse().slice(2).reverse().join("")} = require('./submission.js')\nvar chai = require('chai'); \nvar mocha = require('mocha');\n`)
-	fs.appendFileSync('./data/test.js', test);
-	console.log('The Test file has been saved!');
+  /*The below line adds necessary 'require' statements that are necessary to execute the mocha tests. 
+  This includes mocha, chai, and the js file for the code submission by the user  lol*/
+  fs.writeFileSync('./data/test.js',`var ${functionName.split("").reverse().slice(2).reverse().join("")} = require('./submission.js')\nvar chai = require('chai'); \nvar mocha = require('mocha');\n`)
+  fs.appendFileSync('./data/test.js', test);
+  console.log('The Test file has been saved!');
 }
 
 //Function to write the user code submission (submission.js) for a given game to a 'data' folder on the server.
 function writeSubmissionToFile(submission, functionName){
-	/*The below line adds an exports statement to the submission file, so that the code can be tested by the tests in test.js. 
-	This includes mocha, chai, and the js file for the code submission by the user */
-	fs.writeFileSync('./data/submission.js', `module.exports = `);
-	fs.appendFileSync('./data/submission.js', submission);
-	console.log('The Submission file has been saved!');
+  /*The below line adds an exports statement to the submission file, so that the code can be tested by the tests in test.js. 
+  This includes mocha, chai, and the js file for the code submission by the user */
+  fs.writeFileSync('./data/submission.js', `module.exports = `);
+  fs.appendFileSync('./data/submission.js', submission);
+  console.log('The Submission file has been saved!');
 }
 
 //Function to handle a request to evaluate a user code submission against the tests for the corresponding algorithm
 exports.getSubmissionEvaluation = function(req,res){
 
-	/*var submission = bubbleSort.bubbleSort.func
-	var functionName = 'bubbleSort';*/
+  /*var submission = bubbleSort.bubbleSort.func
+  var functionName = 'bubbleSort';*/
 
-	// console.log(req.body);
+  // console.log(req.body);
 
-	//pulling data off of request body
-	var submission = req.body.value || '';
-	var test = req.body.testSuite;
-	var algoId = req.body.algo;
+  //pulling data off of request body
+  var submission = req.body.value || '';
+  var test = req.body.testSuite;
+  var algoId = req.body.algo;
 
-	console.log('ALGO ID: ' + algoId);
-	console.log('test: ' +  test);
-	console.log('submission: ' + submission);
+  console.log('ALGO ID: ' + algoId);
+  console.log('test: ' +  test);
+  console.log('submission: ' + submission);
 
-	//Using the algo ID from the request, we get the function name, call functions to write the test and submission files, and run the mocha executable against the tests for the algorithm (along with the user code submission)
-	Algo.findById(algoId, (err, algo) => {
-		if (err) throw(err); 
-		var functionName = algo.functionName;
+  //Using the algo ID from the request, we get the function name, call functions to write the test and submission files, and run the mocha executable against the tests for the algorithm (along with the user code submission)
+  Algo.findById(algoId, (err, algo) => {
+    if (err) throw(err); 
+    var functionName = algo.functionName;
 
-		writeTestToFile(test, functionName);
-		writeSubmissionToFile(submission, functionName);
+    writeTestToFile(test, functionName);
+    writeSubmissionToFile(submission, functionName);
 
-		
-		/*given that the server is running in the server folder, 
-		we change directory to the data folder and run mocha
-		Pre-requisite: Mocha must be installed globally in order for this to work
-		("npm install -g mocha").
-		*/
-		cmd.get('cd data && mocha', function(err, data, stderr){
-			// console.log("DATA", data)
+    
+    /*given that the server is running in the server folder, 
+    we change directory to the data folder and run mocha
+    Pre-requisite: Mocha must be installed globally in order for this to work
+    ("npm install -g mocha").
+    */
+    cmd.get('cd data && mocha', function(err, data, stderr){
+      // console.log("DATA", data)
 
-			//Reg Ex to find the number of tests that are passing and failing;
-			var passing = data[/passing/.exec(data).index - 2];
-			var regFailing = /failing/.exec(data) || false
-			var failing = regFailing ? data[regFailing.index - 2] : "0";
+      //Reg Ex to find the number of tests that are passing and failing;
+      var passing = data[/passing/.exec(data).index - 2];
+      var regFailing = /failing/.exec(data) || false
+      var failing = regFailing ? data[regFailing.index - 2] : "0";
 
-			//create object to return back for the post request
-			var returnObj = {'passing': passing, 
-							 'failing': failing,
-							 'testResults': data //this is a printout from mocha with the details of the passing and failing tests
-							}
+      //create object to return back for the post request
+      var returnObj = {'passing': passing, 
+               'failing': failing,
+               'testResults': data //this is a printout from mocha with the details of the passing and failing tests
+              }
 
             res.send(returnObj);
         });
-	});
+  });
 
 }
