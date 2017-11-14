@@ -5,13 +5,13 @@
 
 import React from 'react';
 import axios from 'axios';
-import Prompt from './Prompt.js'; 
-import Timer from './Timer.js'; 
-import CodeEntryForm from './CodeEntryForm.js'
+import Prompt from './Prompt.jsx'; 
+import Timer from './Timer.jsx'; 
+import CodeEntryForm from './CodeEntryForm.jsx'
 // import Tests from './Tests' // this needs a file
 // import Xonsole from './Xonsole' // because 'Console' isn't a reserved word but it should be.
 // import RunXonsoleButton from './RunXonsoleButton' // this needs a file
-import SubmitButton from './SubmitButton.js' // this needs a file
+import SubmitButton from './SubmitButton.jsx' // this needs a file
 
 // Recieves props from: 
 	// none

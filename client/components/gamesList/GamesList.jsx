@@ -2,7 +2,7 @@
 
 var React = require('React');
 var axios = require('axios');
-import Game from './Game.js';
+import Game from './Game.jsx';
 
 // Gamesview -> GamesList -> Game
 //     \--> UserInfo

@@ -3,8 +3,8 @@ import React from 'react';
 import axios from 'axios'
 // the timer is imported to control an auto-submit when the timer runs out and
 // to change results based on time. This feature has not yet been implemented. 
-import Result from './Result.js';
-import Timer from './Timer.js'; 
+import Result from './Result.jsx';
+import Timer from './Timer.jsx'; 
 // This whole component could probably fit in the CodeEntryForm if you chose to refactor. 
 
 // Recieves props from: 
