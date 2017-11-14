@@ -13,6 +13,11 @@ import CodeEntryForm from './CodeEntryForm.js'
 // import RunXonsoleButton from './RunXonsoleButton' // this needs a file
 import SubmitButton from './SubmitButton.js' // this needs a file
 
+// Recieves props from: 
+	// none
+// Gives props to: 
+	// CodeEntryForm, Submit Button, Timer, Prompt
+
 // this receives the following props from the 'GamesList': 
 			// game object with: 
 				// algorithm: _id
@@ -35,7 +40,7 @@ export class GameFrame extends React.Component {
       isXonsoleRun : false, 
       isTimerRunning : false, 
     }
-	console.log('gameObject', this.props.gameObject)
+	// console.log('gameObject', this.props.gameObject)
 	
     this.algorithmID = this.props.gameObject.algorithmID
     this.getAlgorithm = this.getAlgorithm.bind(this)
@@ -51,6 +56,7 @@ export class GameFrame extends React.Component {
 	  .then((algorithm) => {
 	  	this.setState({algorithm : algorithm.data});
 	  	// run the response in a callback so that other functions can use it. 
+	  	// so far, getPrompt, getSeedCode, and getTests all use this. 
 	  	if (cb) cb(algorithm.data); 
     })
   }
@@ -96,6 +102,7 @@ export class GameFrame extends React.Component {
 	}	
 
 	render(props){
+		// console.log('this.state.testSuite', this.state.testSuite)
 		// loading screen shows until state is updated completely. 
 		return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
 		(<div> loading gameFrame... </div>) : 
@@ -103,7 +110,6 @@ export class GameFrame extends React.Component {
 			 <div className="container">
 				<div className="row">
 				<div className="col s9 container ">
-
 					<Prompt promptdetails={this.state.prompt} name={this.props.gameObject.name} />
 					<br/>
 					<CodeEntryForm seedCode = {this.state.seedCode} testSuite={this.state.testSuite}
@@ -112,10 +118,8 @@ export class GameFrame extends React.Component {
 				<div className="col s3 container">
 					<Timer/>
 				</div>
-
-
 						<div className="inline-block-div"> 
-							{/*
+							{/* We aren't using any of these, but you should be able to. 
 							<Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>
 							<RunXonsoleButton toggleRunXonsoleStatus={this.toggleRunXonsoleStatus}/>  
 						*/}	

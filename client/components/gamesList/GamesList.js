@@ -4,6 +4,9 @@ var React = require('React');
 var axios = require('axios');
 import Game from './Game.js';
 
+// Gamesview -> GamesList -> Game
+//     \--> UserInfo
+
 export class GamesList extends React.Component{
 	constructor(props){
 		super(props);
