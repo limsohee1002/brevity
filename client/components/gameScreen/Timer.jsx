@@ -3,8 +3,8 @@
 import React from 'react';
 import axios from 'axios'; 
 import ReactCountdownClock from 'react-countdown-clock';
-import CodeEntryForm from './CodeEntryForm.js';
-import SubmitButton from './SubmitButton.js'
+import CodeEntryForm from './CodeEntryForm.jsx';
+import SubmitButton from './SubmitButton.jsx';
 
 // Recieves props from: 
 	// nowhere.

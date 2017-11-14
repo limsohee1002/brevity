@@ -3,8 +3,8 @@
 var React = require('React');
 var axios = require('axios');
 
-import UserInfo from './UserInfo.js';
-import GamesList from './GamesList.js';
+import UserInfo from './UserInfo.jsx';
+import GamesList from './GamesList.jsx';
 
 // Gamesview -> GamesList -> Game
 //     \--> UserInfo

@@ -8,13 +8,6 @@ var mongoose = require('mongoose');
 
 // unused (should uninstall if these continue to be unused)
 // var logger = require('morgan');
-// var passport = require('passport')
-// var expressValidator = require("express-validator");
-// var localStrat = require('passport-local').Strategy;
-// var multer = require('multer');
-// var upload = multer({dest:"./uploads"});
-// var flash = require('connect-flash');
-
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -46,7 +39,7 @@ app.use(bodyParser.urlencoded({extended: true }));
 app.use(cookieParser());
 
 //Middleware for sessions
-app.use(express.static(__dirname +'/../client/public'))
+app.use(express.static(__dirname + '/public'));
 
 routes(app); //register the route
 

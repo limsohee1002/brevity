@@ -2,7 +2,7 @@
 
 var React = require('React');
 var axios = require('axios');
-import GameFrame from '../gameScreen/GameFrame.js'
+import GameFrame from '../gameScreen/GameFrame.jsx'
 
 // Gamesview -> GamesList -> Game
 //     \--> UserInfo
