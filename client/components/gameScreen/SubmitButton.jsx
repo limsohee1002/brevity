@@ -25,6 +25,20 @@ class SubmitButton extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
   
+  componentWillReceiveProps(nextProps) {
+    console.log('nextprops', nextProps);
+    if (nextProps.bool === true) {
+      axios.post('/test', {
+        value: nextProps.value,
+        testSuite: nextProps.testSuite,
+        algo: nextProps.algo
+      }).then((res) => {
+        // console.log('RES', res.data.testResults)
+        this.setState({ result : res.data });
+      });
+    }
+  }
+
   onClick(e) {
     this.props.submit(() => {
       // console.log("entryForm Data: ", this.props.value)

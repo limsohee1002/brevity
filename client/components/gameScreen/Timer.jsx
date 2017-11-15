@@ -9,15 +9,16 @@ import ReactCountdownClock from 'react-countdown-clock';
 
 // SAM 11/14/2017 - This will need a handler to inform GamesView to
 // make a submit request. Submit button will need the same.
+
 const Timer = (props) => (
   <div >
     <div > 
         <ReactCountdownClock 
-          seconds={500}
+          seconds={600}
           color="#FF0000"
           alpha={0.9}
           size={100}
-          onComplete={() => console.log('time\'s up!')}
+          onComplete={() => props.bool()}
         /> 
      </div>
   </div>

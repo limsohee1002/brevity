@@ -1,5 +1,5 @@
 // the following commented out components need to be uncommented once their components are rendered. 
-    // When you have finsihed a component: 
+    // When you have finished a component: 
       // uncomment the import
       // uncomment the component on the render screen. 
 
@@ -35,6 +35,7 @@ class GameFrame extends React.Component {
       prompt: null, 
       seedCode: null, 
       testSuite: null, 
+      timerbool: false,
       // The below three are not currently being used. 
       isSubmitted: false, 
       isXonsoleRun: false, 
@@ -48,7 +49,26 @@ class GameFrame extends React.Component {
     this.getTests = this.getTests.bind(this);
     this.toggleSubmitStatus = this.toggleSubmitStatus.bind(this);
     this.toggleRunXonsoleStatus = this.toggleRunXonsoleStatus.bind(this);
+    this.changeTimer = this.changeTimer.bind(this);
   }
+
+  //JSC 11-15-17 
+  // submitTimer() {
+  //   axios.get('/timer' + )
+  //   .then()
+  // }
+  changeTimer() {
+    this.setState({timerbool:true})
+  }
+
+  //JSC 11-15-17 
+  // submitTimer() {
+  //   axios.get('/timer' + )
+  //   .then()
+  // }
+
+
+
 
   getAlgorithm(algoId, cb) {
     axios.get('/algos/' + algoId) 
@@ -121,10 +141,11 @@ class GameFrame extends React.Component {
             <CodeEntryForm 
               seedCode = {this.state.seedCode} 
               testSuite={this.state.testSuite}
-              algo={this.props.gameObject.algorithmID} /> 
+              algo={this.props.gameObject.algorithmID}
+              bool={this.state.timerbool} /> 
           </div> 
           <div className="col s3 container">
-            <Timer />
+            {<Timer bool={this.changeTimer}/> }
           </div>
           <div className="inline-block-div"> 
             {/* We aren't using any of these, but you should be able to. 
