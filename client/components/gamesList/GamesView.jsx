@@ -1,5 +1,12 @@
-import React from 'react';
-import axios from 'axios';
+//This is the highest level view of the page that will include a list of all available challenges
+
+var React = require('React');
+import { Route, browserHistory } from 'react-router';
+import { Link, IndexRoute, BrowserRouter as Router } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory'
+
+const customHistory = createBrowserHistory()
+var axios = require('axios');
 
 import UserInfo from './UserInfo.jsx';
 import GamesList from './GamesList.jsx';
@@ -50,17 +57,20 @@ class GamesView extends React.Component {
 //The username prop is coming from main.js in the public folder
   render(){
     return (
+      <Router >
       <div>
-        <div className="red lighten-4 center">
-        <UserInfo username={this.props.user.username} points={this.state.points} level={this.state.level} />
+        <div className="red lighten-4 center" >
+        <UserInfo username={this.props.user} points={this.state.points} level={this.state.level}/>
         </div>
-        {this.state.selectedGame ?
-          <GameFrame gameObject={this.state.selectedGame} onBack={this.onBack} /> :
-          <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}
+        <GamesList gameslist={this.state.games} username={this.props.username}/>
+          <ul>
+            {this.state.games.map((game) => <li><Link to={'/games/' + game.name}>{game.name}</Link></li>)}
+          </ul> 
+          {this.state.games.map((game) => <Route path={'/games/' + game.name} render={() => (<GamesList gamesList={game} />)}/>)}
       </div>
-    );
+      </Router>
+    )
   }
 }
 
 export default GamesView; 
-
