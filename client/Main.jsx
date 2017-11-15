@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Lander from './components/landing/Landing.jsx';
+import Landing from './components/landing/Landing.jsx';
 import GamesView from './components/gamesList/GamesView.jsx'
 //all components will be attached to this Page component. 
 //Page component will be rendered to the html file
@@ -23,7 +23,7 @@ class Page extends React.Component {
     // this.state.user gets defined by the setUser function in Lander.
     return (this.state.user === null) ?
       <h6>
-        <Lander setUser={this.setUser} />
+        <Landing setUser={this.setUser} />
       </h6> : 
       <div>
         <GamesView user={this.state.user} />

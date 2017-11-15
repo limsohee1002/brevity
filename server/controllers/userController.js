@@ -25,13 +25,13 @@ exports.addAUser = (req, res) => {
     // the error message shows up. 
     let allUsernames = allUsers.map((obj) => obj.username);
     if (allUsernames.includes(req.body.username)) {
-      res.send({ error: 'username taken!' });
+      res.status(400).send('Username taken!');
     } else if (req.body.username.length < 5) {
-      res.send({ error: 'usernames must be at least 5 charachters long!' });
+      res.status(400).send('Usernames must be at least 5 characters long!');
     } else if (req.body.password.length < 4) {
-      res.send({ error: 'passwords must be at least 4 charachters long!' });
-    } else if (req.body.username.split(" ").length > 1 || req.body.username.split(" ").length > 1) {
-      res.send({ error: 'usernames and passwords may not contain spaces!' });
+      res.status(400).send('Passwords must be at least 4 characters long!');
+    } else if (req.body.username.split(' ').length > 1 || req.body.username.split(' ').length > 1) {
+      res.status(400).send('Usernames and passwords may not contain spaces!');
     
     // If not a bad username or password, hash it's password.
     } else {
