@@ -18,6 +18,7 @@ class Landing extends React.Component {
     this.handlePassword = this.handlePassword.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
     this.handleLogin = this.handleLogin.bind(this);
+    this.checkUser = this.checkUser.bind(this);
   }
 
 // THESE ARE JUST FOR THE SIGN UP. 
@@ -45,7 +46,7 @@ class Landing extends React.Component {
       password: this.state.password
     })
     .then((response) => {
-      this.props.setUser(this.state.username);
+      this.props.setUser(response.data);
     }) 
     .catch((error) => {
       this.setState({
@@ -62,17 +63,28 @@ class Landing extends React.Component {
       password: this.state.password
     })
     .then((response) => {
-      if (response.data.error === undefined) {
-        this.props.setUser(this.state.username);
-      } else {
-        this.setState({ 
-          error: response.data.error 
-        });
-      }
+      this.props.setUser(response.data);
     })
     .catch((error) => {
-      console.error(error);
+      this.setState({
+        error: response.data.error
+      });
     });
+  }
+
+  // Upon loading, check if user is logged in
+  checkUser() {
+    axios.get('/users/auth')
+    .then((response) => {
+      this.props.setUser(response.data);
+    })
+    .catch((error) => {
+      console.log('User session expired');
+    });
+  }
+
+  componentDidMount() {
+    this.checkUser();
   }
 
   render() {
