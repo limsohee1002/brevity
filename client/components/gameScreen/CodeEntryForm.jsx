@@ -79,7 +79,8 @@ class CodeEntryForm extends React.Component {
          submit={this.onSubmit}
          value={this.state.value}
          testSuite={this.props.testSuite} 
-         algo={this.props.algo} />
+         algo={this.props.algo} 
+         bool={this.props.bool}/>
       </div> : <div> Loading... </div>
   }
 }

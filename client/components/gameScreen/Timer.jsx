@@ -14,11 +14,11 @@ const Timer = (props) => (
   <div >
     <div > 
         <ReactCountdownClock 
-          seconds={10}
+          seconds={600}
           color="#FF0000"
           alpha={0.9}
           size={100}
-          onComplete={() => axios.post('./')}
+          onComplete={() => props.bool()}
         /> 
      </div>
   </div>
