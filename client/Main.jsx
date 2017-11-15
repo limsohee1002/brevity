@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import Landing from './components/landing/Landing.jsx';
 import GamesView from './components/gamesList/GamesView.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
@@ -12,10 +13,21 @@ class Page extends React.Component {
       user: null
     };
     this.setUser = this.setUser.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   setUser(user) {
     this.setState({ user });
+  }
+
+  logout() {
+    axios.get('/logout')
+    .then((response) => {
+      this.setState({ user: null });
+    })
+    .catch((error) => {
+      this.setState({ user: null });
+    });
   }
 
   render(props) {
@@ -28,6 +40,7 @@ class Page extends React.Component {
     ) : (
       <BrowserRouter> 
       <div>
+        <button onClick={this.logout}>Log out</button>
         <GamesView user={this.state.user} />
       </div>
     </BrowserRouter>

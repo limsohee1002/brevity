@@ -133,7 +133,6 @@ class GameFrame extends React.Component {
     <div className="row">
        <div className="container">
         <div className="row">
-        <button onClick={this.props.onBack}>Back</button>
           <div className="col s9 container ">
             <Prompt 
               promptDetails={this.state.prompt} 
