@@ -60,6 +60,7 @@ class CodeEntryForm extends React.Component {
   return (this.props.seedCode !== null) ? 
     <div>
         <div className="z-depth-4">
+        
           <AceEditor
             mode="javascript"
             theme="monokai"
