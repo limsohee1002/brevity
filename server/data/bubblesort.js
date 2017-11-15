@@ -14,4 +14,4 @@ module.exports.bubbleSort = {'func': `function(array) {
       return array;
     }
   }
-};`}
+};`};

@@ -11,26 +11,23 @@ class Page extends React.Component {
     this.state = {
       user : null, 
 	  }; 
-
 	 this.setUser = this.setUser.bind(this)
   }
 
  	setUser(user) {
-	  this.setState({user})	
+	  this.setState({user});
   }
 
   render(props) {
     // only render the gamesView if this.state.user is defined. 
     // this.state.user gets defined by the setUser function in Lander.
-    return (this.state.user === null) ? (
-        <h6>
-          <Lander setUser = {this.setUser} />
-        </h6>
-      ) : (
-        <div>
-          <GamesView user = {this.state.user} />
-        </div>
-      )
+    return (this.state.user === null) ?
+      <h6>
+        <Lander setUser={this.setUser} />
+      </h6> : 
+      <div>
+        <GamesView user={this.state.user} />
+      </div>;
     }
   }
 

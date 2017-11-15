@@ -1,25 +1,15 @@
 //This is a component which renders some user information at the top of the GamesView page
-var React = require('React');
-var axios = require('axios');
+import React from 'react';
 
 // Gamesview -> GamesList -> Game
 //     \--> UserInfo
 
-export class UserInfo extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  //the props are coming from the GamesView
-  render(){
-    return(
-      <div className = "row">
-         <h5 className = "col s4"> Username: {this.props.username} </h5>
-         <h5 className = "col s4"> Points: {this.props.points} </h5>
-         <h5 className = "col s4"> Level: {this.props.level} </h5>
-      </div>
-    )
-  }
-}
+const UserInfo = (props) => (
+  <div className="row">
+     <h5 className="col s4">Username: {props.username}</h5>
+     <h5 className="col s4">Points: {props.points}</h5>
+     <h5 className="col s4">Level: {props.level}</h5>
+  </div>
+);
 
 export default UserInfo; 

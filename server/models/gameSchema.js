@@ -1,10 +1,9 @@
-'use strict'; // right?
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
 var gameSchema = new Schema({
-  // game has a many to one relationship with algorithms. So many games can all use 
+  // Game has a many to one relationship with algorithms. So many games can all use 
   // the same algorithm. This is so that down the line, a person could create a new 
   // game without having to write tests and a algorithm and instead can just choose 
   // from a list of vetted algorithms. 
@@ -13,14 +12,14 @@ var gameSchema = new Schema({
     type: String, 
   }, 
 
-  // TODO: tie these to the results of submit and the conditions of the game (timer, 
-  // point cost etc. )
+  // TODO: Tie these to the results of submit and the conditions of the game (timer, 
+  // point cost etc.)
   playerScores: {
     type: Array, 
     default: [], 
   }, 
 
-  // TODO: these should be initiated on creation of a game and appended as users join.
+  // TODO: These should be initiated on creation of a game and appended as users join.
   participants: {
     type: Array,
     default: [], 
@@ -32,7 +31,7 @@ var gameSchema = new Schema({
     default: [],
   },
 
-  // these are in a fib ratio: 1, 2, 3, 5, or 8 points
+  // These are in a fib ratio: 1, 2, 3, 5, or 8 points
   // TODO: create a game creation page that has a pointWorth feild. 
   pointWorth: {
     type: Number, 
@@ -46,7 +45,7 @@ var gameSchema = new Schema({
     default: 1,
   }, 
 
-  // active, completed? 
+  // Active, completed? 
   status : {
     type : String, 
     default : 'active',
