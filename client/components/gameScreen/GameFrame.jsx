@@ -107,6 +107,7 @@ class GameFrame extends React.Component {
   render(props){
     // console.log('this.state.testSuite', this.state.testSuite)
     // loading screen shows until state is updated completely. 
+    console.log('test')
     return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
     <div> Loading Game... </div> : 
     <div className="row">
