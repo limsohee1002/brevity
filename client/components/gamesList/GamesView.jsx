@@ -26,7 +26,6 @@ class GamesView extends React.Component {
       selectedGame: null
     };
     this.onGameSelect = this.onGameSelect.bind(this);
-    this.onBack = this.onBack.bind(this);
   };
   
 // Upon the GamesView mounting, we are making a get request to the /games route which will return an array of games to render on the page
@@ -47,11 +46,6 @@ class GamesView extends React.Component {
     });
   }
 
-  onBack() {
-    this.setState({
-      selectedGame: null
-    });
-  }
   //<Redirect from="/" exact to="/gameList" />
 //renders two components: UserInfo with dummy user date and GamesList with a list of available games. 
 //The username prop is coming from main.js in the public folder
@@ -64,7 +58,7 @@ class GamesView extends React.Component {
          <Switch>
            <Redirect exact from='/' to='/gameList'/>
            <Route exact path='/gameList' render={() => <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}/>
-           {this.state.games.map((game) => <Route path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame gameObject={game} onBack={this.onBack} />} />)}
+           {this.state.games.map((game) => <Route path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame gameObject={game} />} />)}
          </Switch>
        </div>
     );

@@ -12,6 +12,9 @@ module.exports = (app) => {
   var test = require('../controllers/testController.js');
   var algorithms = require('../controllers/algorithmController.js');
 
+  // Logout
+  app.get('/logout', user.logout);
+  
   // Routes for game:
   app.get('/users', user.getAllUsers);
   app.post('/users', user.addAUser); // Sign-up
