@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Landing from './components/landing/Landing.jsx';
 import GamesView from './components/gamesList/GamesView.jsx';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 //all components will be attached to this Page component.
 //Page component will be rendered to the html file
 class Page extends React.Component {
