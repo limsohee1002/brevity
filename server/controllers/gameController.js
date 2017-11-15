@@ -1,55 +1,50 @@
-'use strict'; // ?
 var mongoose = require('mongoose');
 var Games = mongoose.model('gameSchema');
 
+// SAM 11/14/2017 - Didn't really verify these routes
 
-// 'get /games' 
-exports.getAllGames = function(req, res) {
-  // empty search params returns all games. 
-  Games.find({}, (err, data) => {
-    if (err) console.error(err); 
+// Get '/games' 
+exports.getAllGames = (req, res) => {
+  // Empty search params returns all games. 
+  Games.find({}, (error, data) => {
+    if (error) { return res.status(404).send(error); }
     res.send(data); 
-  })
+  });
 };
 
-// post '/games'
-exports.addAGame = function(req, res) {
+// Post '/games'
+exports.addAGame = (req, res) => {
   var newGame = new Games(req.body);
-  newGame.save(function(err, game) {
-    if (err) {res.send(err)};
+  newGame.save((error, game) => {
+    if (error) { return res.status(401).send(error); }
     res.send(game);
   });
 };
 
 
-// get 'games/:id'
-exports.updateGame = function(req, res) {
-  // updates the game with the given :id
-  Games.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, games) {
-    if (err) {res.send(err)};
+// Get 'games/:id'
+exports.updateGame = (req, res) => {
+  // Updates the game with the given :id
+  Games.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (error, games) => {
+    if (error) { return res.status(404).send(error); }
     res.send(games);
   });
 };
 
-// get 'games/:id'
-exports.getAGame = function(req, res) {
-  Games.findById(req.params.id, function(err, game) {
-    if (err) {res.send(err)};
+// Get 'games/:id'
+exports.getAGame = (req, res) => {
+  Games.findById(req.params.id, (error, game) => {
+    if (error) { return res.status(404).send(error); }
     res.send(game);
   });
-}
+};
 
 
-// delete '/games:id'
+// Delete '/games:id'
 exports.deleteGame = function(req, res) {
-  // deletes a game and console.logs that it was deleted. 
-  Games.remove (
-    {id : req.params.id}, 
-    (err, games) => {
-      if (err) {res.send(err)}
-      else {
-      res.send(`${Games} successfully deleted`)
-      }
-    }
-  )
-}
+  // Deletes a game and console.logs that it was deleted. 
+  Games.remove({ id : req.params.id }, (error, games) => {
+    if (error) { return res.status(400).send(error); }
+    res.send(`${Games} successfully deleted`);
+  });
+};

@@ -1,4 +1,3 @@
-'use strict'; // right?
 var mongoose = require('mongoose');
 var db = require('../server.js')
 
@@ -19,7 +18,7 @@ var algorithmSchema = new Schema({
   prompt: {
     type: String, 
   }, 
-  // this needs to be in ES5 so that the tests can read the function. 
+  // This needs to be in ES5 so that the tests can read the function. 
   // ES6+ syntax will break the tests. It should also be one line so that 
   // it doesn't break the seedCode input in the codeEntryForm. 
   seedCode: {
@@ -39,7 +38,7 @@ var algorithmSchema = new Schema({
   }, 
 
   // TODO: this should get pushed to with the username that submits. 
-  // we made the choice to put this in the algo instead of the game so that eventually 
+  // We made the choice to put this in the algo instead of the game so that eventually 
   // you could render a component that showed all of the submissions that had been made 
   // across all games to a given algorithm. 
   submissionHistory: {

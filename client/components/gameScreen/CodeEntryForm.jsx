@@ -23,11 +23,14 @@ import 'brace/theme/monokai'
 // ReactAce is very difficult to work with and you may get stuck down a 
 // rabbit hole that is not worth your time. 
 
-export class CodeEntryForm extends React.Component {
+// SAM 11/14/2017 - I think we can modify the styling of AceEditor, but 
+// I agree that maybe we shouldn't modify the base logic too much
+
+class CodeEntryForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      value: "",
+    this.state = {
+      value: '',
       submitted : false, 
     }
     this.onChange = this.onChange.bind(this);
@@ -40,7 +43,7 @@ export class CodeEntryForm extends React.Component {
   // re-render. 
   onChange(newValue, e) {
     const editor = this.ace.editor; // The editor object is from Ace's API
-    this.state.value = editor.getValue()
+    this.state.value = editor.getValue();
   }
 
   // this onSubmit is passed down to the submitButton, which triggers the state 
@@ -48,14 +51,14 @@ export class CodeEntryForm extends React.Component {
   // triggers a rerender of the page, which clears the code in the editor but also 
   // rerenders the SubmitButton with the new this.state.value, which has been updating
   onSubmit(cb) {
-    this.setState({submitted : true}, cb)
+    this.setState({ submitted : true }, cb);
   }
 
   render() {
   // console.log('this.props.testSuite in CodeEntryForm', this.props.testSuite)
   // this displays 'loading...' until the seedcode has loaded from the gameFrame. 
   return (this.props.seedCode !== null) ? 
-    (<div>
+    <div>
         <div className="z-depth-4">
           <AceEditor
             mode="javascript"
@@ -68,18 +71,15 @@ export class CodeEntryForm extends React.Component {
             ref={instance => { this.ace = instance; }} // Let's put things into scope
             enableBasicAutocompletion={true}
             enableLiveAutocompletion={true}
-            enableSnippets={true}
-          />
+            enableSnippets={true} />
         </div>
       {/* uhh... this could probably in this file. */}
         <SubmitButton 
          submit={this.onSubmit}
          value={this.state.value}
          testSuite={this.props.testSuite} 
-         algo={this.props.algo}
-        />
-      </div>
-    ) : (<div> loading... </div>)
+         algo={this.props.algo} />
+      </div> : <div> Loading... </div>
   }
 }
 

@@ -1,46 +1,64 @@
-//This is the highest level view of the page that will include a list of all available challenges
-
-var React = require('React');
-var axios = require('axios');
+import React from 'react';
+import axios from 'axios';
 
 import UserInfo from './UserInfo.jsx';
 import GamesList from './GamesList.jsx';
+import GameFrame from '../gameScreen/GameFrame.jsx';
+//GamesView -> GamesList
+//      \----> GameFrame
+//       \---> UserInfo 
 
-// Gamesview -> GamesList -> Game
-//     \--> UserInfo
-
-export class GamesView extends React.Component {
+class GamesView extends React.Component {
   constructor(props) {
     super(props);
-    //sets default/dummy values for points and level
+    // Sets default/dummy values for points and level -> replace with user data
     this.state = {
       points: 1000,
-      level: 2,
-      games: [ ], 
+      level: 1,
+      games: [],
+      selectedGame: null
     };
+    this.onGameSelect = this.onGameSelect.bind(this);
+    this.onBack = this.onBack.bind(this);
   };
   
-//upon the GamesView mounting, we are making a get request to the /games route which will return an array of games to render on the page
-  componentDidMount(){
+// Upon the GamesView mounting, we are making a get request to the /games route which will return an array of games to render on the page
+// Will also need to replace user data, should Main.jsx handle this?
+  componentDidMount() {
     axios.get('/games')
-    .then(function(result){
-      this.setState({games:result.data});
-    }.bind(this))
+    .then((result) => {
+      this.setState({ games: result.data });
+    })
     .catch((err) => {
-      throw(err)});
+      throw(err);
+    });
   };
+
+  onGameSelect(idx) {
+    this.setState({
+      selectedGame: this.state.games[idx]
+    });
+  }
+
+  onBack() {
+    this.setState({
+      selectedGame: null
+    });
+  }
 
 //renders two components: UserInfo with dummy user date and GamesList with a list of available games. 
 //The username prop is coming from main.js in the public folder
   render(){
     return (
       <div>
-        <div className=" red lighten-4 center" >
-        <UserInfo username={this.props.user} points={this.state.points} level={this.state.level}/>
+        <div className="red lighten-4 center">
+        <UserInfo username={this.props.user} points={this.state.points} level={this.state.level} />
         </div>
-        <GamesList gameslist={this.state.games} username={this.props.username}/>
+        {this.state.selectedGame ?
+          <GameFrame gameObject={this.state.selectedGame} onBack={this.onBack} /> :
+          <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}
       </div>
-    )
+    );
   }
 }
 

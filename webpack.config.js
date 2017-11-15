@@ -1,6 +1,7 @@
 const path = require('path');
 const SRC = path.join(__dirname, '/client');
 const PUBLIC = path.join(__dirname, '/server/public');
+const NODE_MODULES = path.join(__dirname, '/node_modules');
 
 module.exports = {
   entry:"./client/Main.jsx",
@@ -19,7 +20,7 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.join(__dirname, 'node_modules')
+      NODE_MODULES
     ]
   }
 }

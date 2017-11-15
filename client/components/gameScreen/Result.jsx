@@ -5,23 +5,13 @@ import React from 'react';
 // Gives props to: 
     // none
 
-class Result extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
-    render(){
-        return(
-        <div>
-            <h6 className="green-text "> Test Passing: {this.props.sub.passing} </h6>
-            <h6 className="red-text "> Test Failing: {this.props.sub.failing} </h6>
-            
-            <br/>
-            
-            <span className="red-text"> {this.props.sub.testResults} </span>
-        </div>
-        )
-    }
-}
+const Result = (props) => (
+  <div>
+    <h6 className="green-text "> Tests Passing: {props.sub.passing || 0} </h6>
+    <h6 className="red-text "> Tests Failing: {props.sub.failing || 0} </h6>
+    <br/>    
+    <span className="red-text"> {props.sub.testResults} </span>
+  </div>
+);
 
 export default Result
