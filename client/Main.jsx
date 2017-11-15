@@ -15,7 +15,7 @@ class Page extends React.Component {
   }
 
  	setUser(user) {
-	  this.setState({user});
+	  this.setState({ user });
   }
 
   render(props) {

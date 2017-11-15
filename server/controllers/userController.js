@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var Users = mongoose.model('userSchema');
 var bcrypt = require('bcrypt');
 
+var util = require('../lib/utility');
+
 // SAM 11/14/2017 - These errors need to have the correct status codes attached
 
 // Get '/users'
@@ -42,12 +44,18 @@ exports.addAUser = (req, res) => {
         newUser.save((error, newUser) => {
           if (error) { return res.status(401).send(error); }
           // landing takes this error and rethrows it. 
-          res.send(newUser);
+          // res.send(newUser);
+          util.createSession(req, res, newUser);
         });
       });
     };
   })
 }; 
+
+// Get '/users/auth'
+exports.loggedUser = (req, res) => {
+  util.checkUser(req, res);
+};
 
 // Post '/users/auth'
 exports.authUser = (req, res) => {
@@ -60,21 +68,21 @@ exports.authUser = (req, res) => {
       console.error('a res.send() with an error was sent to handleAdd');
       res.status(403).send('there was an error');
     } else {
-      if (match.length === 0) {
-        // if there are no matches, send an error. 
-        res.send({ error: 'That username does not exist. Sign up above.' })
-      } else if (match.length === 1) {
+      if (match.length === 1) {
         var hashedPassword = match[0].password;
         var inputPassword = req.body.password;
 
         bcrypt.compare(inputPassword, hashedPassword, (error, isCorrectPassword) => {
           if (isCorrectPassword) {
-            var currentUser = new Users(req.body);
-            res.send(currentUser);
+            var user = new Users(req.body);
+            // res.send(currentUser);
+            util.createSession(req, res, user);
           } else {
             res.send({ error : 'That password and username did not match. Please try again.' });
           }
         });
+      } else {
+        res.status(400).send('That username does not exist. Sign up above.'); 
       }
     }
   });

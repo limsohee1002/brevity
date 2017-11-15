@@ -52,7 +52,7 @@ class GamesView extends React.Component {
     return (
       <div>
         <div className="red lighten-4 center">
-        <UserInfo username={this.props.user} points={this.state.points} level={this.state.level} />
+        <UserInfo username={this.props.user.username} points={this.state.points} level={this.state.level} />
         </div>
         {this.state.selectedGame ?
           <GameFrame gameObject={this.state.selectedGame} onBack={this.onBack} /> :

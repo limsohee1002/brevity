@@ -5,15 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-
-// unused (should uninstall if these continue to be unused)
-// var logger = require('morgan');
-
-// SAM 11/14/2017 - My little logger
-const logger = (req, res, next) => {
-  console.log(`${req.method} request at ${req.url}`);
-  next();
-};
+var util = require('./lib/utility');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:')); // SAM 11/14/2017 - What?
@@ -21,7 +13,8 @@ db.once('open', () => {
   console.log('mongo server loaded');
 });
 
-var routes = require('./routes/Routes.js'); //importing route
+//importing route
+var routes = require('./routes/Routes.js'); 
 
 // registering the routes and the model must happen before the routes
 var algos = require('./models/algorithmSchema.js'); // registering the models.
@@ -33,19 +26,28 @@ var DB_CREDENTIALS = require('./keys/mongoDBCredentials.js');
 var uri = 'mongodb://' + DB_CREDENTIALS;
 var local = 'mongodb://localhost';
 
-
 mongoose.Promise = global.Promise
 // Set to 'local' to run on localhost, uri to run on mLab
 mongoose.connect(uri); 
 
 app = express();
 
-app.use(logger);
+// Middleware
+app.use(util.logger);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true }));
 app.use(cookieParser());
 
 // Middleware for sessions
+app.use(session({
+  secret: 'bespin is best brevity',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 60000
+  }
+}));
+
 app.use(express.static(__dirname + '/public'));
 
 routes(app); // Register the route

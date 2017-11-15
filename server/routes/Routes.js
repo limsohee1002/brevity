@@ -3,6 +3,7 @@
 // controller file. To see what happens at a given endpoint, look up the appro-
 // priate controller file and find the matching helper function. We are using 
 // MLab as a database. See Seamus for the user/pass.
+const util = require('../lib/utility');
 
 module.exports = (app) => {
   // these just align each prefix to a file. 
@@ -14,6 +15,7 @@ module.exports = (app) => {
   // Routes for game:
   app.get('/users', user.getAllUsers);
   app.post('/users', user.addAUser); // Sign-up
+  app.get('/users/auth', user.loggedUser); //Sessions  
   app.post('/users/auth', user.authUser); // Log-in
 
   // Routes to handle getting and updating specific user. 
@@ -26,7 +28,7 @@ module.exports = (app) => {
   app.post('/games', game.addAGame);
 
   app.put('/games/:id', game.updateGame);
-  app.get('games/:id', game.getAGame);
+  app.get('/games/:id', game.getAGame);
  
   app.delete('/games/:id', game.deleteGame);
 
