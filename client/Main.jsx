@@ -26,9 +26,11 @@ class Page extends React.Component {
         <Landing setUser={this.setUser} />
       </h6>
     ) : (
+      <BrowserRouter> 
       <div>
         <GamesView user={this.state.user} />
       </div>
+    </BrowserRouter>
     );
     // return (
     //   <Router>

@@ -51,7 +51,9 @@ app.use(session({
 app.use(express.static(__dirname + '/public'));
 
 routes(app); // Register the route
-
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+})
 var port = process.env.PORT || 3000; 
 app.listen(port);
 
