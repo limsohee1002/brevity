@@ -50,6 +50,7 @@ class Page extends React.Component {
         </ul>
         <button onClick={this.logout}>Log out</button>
         <Switch>
+          <Redirect exact from='/' to='/gameList'/>
           <Route path='/gameList' render={() => <GamesView user={this.state.user} />} />
           <Route path='/leaderboard' render={() => <LeaderBoard/>}/>
           <Route path='/profile' render={() => <Profile/>}/>
