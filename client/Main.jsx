@@ -40,7 +40,7 @@ class Page extends React.Component {
       <h6>
         <Landing setUser={this.setUser} />
       </h6>
-    ) : (
+      ) : (
       <BrowserRouter> 
       <div>
         <ul>
