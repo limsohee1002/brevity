@@ -1,7 +1,7 @@
 var mongoose = require('./mongoose');
 var points = mongoose.model('pointsSchema');
 
-/*    
+
 var testPoints = (testsPassed, testsFailed) => {
   return 500*(testsPassed/ (testsPassed+testsFailed))
 }
@@ -29,16 +29,15 @@ var timePoints = (timeLeft) => {
     return speedPoints;
 }
 
-var lengthPoints = (answerLength, codeLength) => {
+var lengthPoints = (answerLength, userCodeLength) => {
   var lengthPoints = 250;
-  if (codelength > answerLength) {
+  if (userCodelength > answerLength) {
     lengthPoints = 125;
   } 
   return lengthPoints;
 }
 
-var totalPoints = () => {
-  return (testPoints() + timePoints() + lengthPoints();
+var totalPoints = (testsPassed,testsFailed, timeLeft, answerLength, userCodelength) => {
+  return (testPoints(testsPassed, testsFailed) + timePoints(timeLeft) + lengthPoints(answerLength, userCodelength));
 }
-*/
 

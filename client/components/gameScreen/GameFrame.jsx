@@ -52,23 +52,9 @@ class GameFrame extends React.Component {
     this.changeTimer = this.changeTimer.bind(this);
   }
 
-  //JSC 11-15-17 
-  // submitTimer() {
-  //   axios.get('/timer' + )
-  //   .then()
-  // }
   changeTimer() {
     this.setState({timerbool:true})
   }
-
-  //JSC 11-15-17 
-  // submitTimer() {
-  //   axios.get('/timer' + )
-  //   .then()
-  // }
-
-
-
 
   getAlgorithm(algoId, cb) {
     axios.get('/algos/' + algoId) 
@@ -127,7 +113,6 @@ class GameFrame extends React.Component {
   render(props){
     // console.log('this.state.testSuite', this.state.testSuite)
     // loading screen shows until state is updated completely. 
-    console.log('test')
     return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
     <div> Loading Game... </div> : 
     <div className="row">
