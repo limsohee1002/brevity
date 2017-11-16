@@ -130,10 +130,13 @@ class GameFrame extends React.Component {
     console.log('test')
     return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
     <div> Loading Game... </div> : 
-    <div className="row">
+    <div className="gameview">
        <div className="container">
-        <div className="row">
-          <div className="col s9 container ">
+        <div className="gameview">
+          <div className="col s9 container">
+          <div className="col s3 container">
+            {<Timer bool={this.changeTimer}/> }
+          </div>
             <Prompt 
               promptDetails={this.state.prompt} 
               name={this.props.gameObject.name} />
@@ -144,9 +147,7 @@ class GameFrame extends React.Component {
               algo={this.props.gameObject.algorithmID}
               bool={this.state.timerbool} /> 
           </div> 
-          <div className="col s3 container">
-            {<Timer bool={this.changeTimer}/> }
-          </div>
+          
           <div className="inline-block-div"> 
             {/* We aren't using any of these, but you should be able to. 
             <Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>

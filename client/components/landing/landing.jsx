@@ -90,8 +90,8 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
-        <div className="container">
-          <form>
+        <div>
+          <form className="login">
             <i className="material-icons prefix">account_circle</i>
             <input type="text" value={this.state.username} onChange={this.handleUsername} placeholder="Username"/>
             <i className="material-icons prefix">edit</i>

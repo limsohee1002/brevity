@@ -7,9 +7,9 @@ import { Link, IndexRoute, BrowserRouter as Router } from 'react-router-dom';
 //       \---> UserInfo 
 
 const GamesList = (props) => (
-    <div>
-      <h5>Games</h5>
-      <div>
+    <div className="games">
+      <h5 className="gametitle">Games</h5>
+      <div className="game-list">
         {props.gamesList.map((game, i) => 
           <Link to={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)}><div key={i} className="z-depth-4" onClick={props.onGameSelect.bind(null, i)}>{game.name}</div></Link>
         )}

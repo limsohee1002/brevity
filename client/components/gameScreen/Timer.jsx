@@ -12,7 +12,7 @@ import ReactCountdownClock from 'react-countdown-clock';
 
 const Timer = (props) => (
   <div >
-    <div > 
+    <div class="time"> 
         <ReactCountdownClock 
           seconds={600}
           color="#FF0000"
