@@ -1,12 +1,12 @@
 //This is the highest level view of the page that will include a list of all available challenges
 
-var React = require('React');
+import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { BrowserRouter, Link, Switch } from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 const customHistory = createBrowserHistory()
-var axios = require('axios');
+import axios from 'axios';
 
 import UserInfo from './UserInfo.jsx';
 import GamesList from './GamesList.jsx';
@@ -57,7 +57,7 @@ class GamesView extends React.Component {
          </div>
          <Switch>
            <Route exact path='/gameList' render={() => <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}/>
-           {this.state.games.map((game) => <Route path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame gameObject={game} />} />)}
+           {this.state.games.map((game, i) => <Route key={i} path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame key={i} gameObject={game} />} />)}
          </Switch>
        </div>
     );

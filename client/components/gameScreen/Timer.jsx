@@ -11,15 +11,14 @@ import ReactCountdownClock from 'react-countdown-clock';
 // make a submit request. Submit button will need the same.
 
 const Timer = (props) => (
-  <div >
-    <div > 
+  <div>
+    <div> 
         <ReactCountdownClock 
           seconds={600}
           color="#FF0000"
           alpha={0.9}
           size={100}
-          onComplete={() => props.bool()}
-        /> 
+          onComplete={props.onTimerExpired} /> 
      </div>
   </div>
 );

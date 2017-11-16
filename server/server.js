@@ -42,10 +42,7 @@ app.use(cookieParser());
 app.use(session({
   secret: 'bespin is best brevity',
   resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 60000
-  }
+  saveUninitialized: true
 }));
 
 app.use(express.static(__dirname + '/public'));
