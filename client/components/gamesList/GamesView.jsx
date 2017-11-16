@@ -1,12 +1,12 @@
 //This is the highest level view of the page that will include a list of all available challenges
 
-var React = require('react');
+import React from 'react';
 import { Route, Redirect } from 'react-router';
 import { BrowserRouter, Link, Switch } from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 const customHistory = createBrowserHistory()
-var axios = require('axios');
+import axios from 'axios';
 
 import UserInfo from './UserInfo.jsx';
 import GamesList from './GamesList.jsx';
