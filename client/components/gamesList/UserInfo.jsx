@@ -7,7 +7,7 @@ import { Link, IndexRoute, BrowserRouter as Router } from 'react-router-dom';
 //     \--> UserInfo
 
 const UserInfo = props => (
-  <div className="row">
+  <div className="row" idname="userinfo">
     <h5 className="col s3">
       Username:
       <Link to={`/profile/${props.username}`}> {props.username}</Link>
