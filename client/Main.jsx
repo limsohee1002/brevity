@@ -7,6 +7,7 @@ import { Route, Redirect } from 'react-router';
 import { BrowserRouter, Link, Switch } from 'react-router-dom'
 import LeaderBoard from './components/leaderboard/Leaderboard.jsx';
 import Profile from './components/profile/Profile.jsx';
+import NavBar from './components/navbar/NavBar.jsx';
 //all components will be attached to this Page component.
 //Page component will be rendered to the html file
 class Page extends React.Component {
@@ -36,26 +37,24 @@ class Page extends React.Component {
   render(props) {
     // only render the gamesView if this.state.user is defined.
     // this.state.user gets defined by the setUser function in Lander.
-    return this.state.user === null ? (
-      <h6>
-        <Landing setUser={this.setUser} />
-      </h6>
-      ) : (
-      <BrowserRouter> 
-      <div>
-        <ul>
-          <li><Link to='/gameList'>Games</Link></li>
-          <li><Link to='/leaderboard'>Leaderboard</Link></li>
-          <li><Link to='/profile'>Profile</Link></li>
-        </ul>
-        <button onClick={this.logout}>Log out</button>
-        <Switch>
-          <Redirect exact from='/' to='/gameList'/>
-          <Route path='/gameList' render={() => <GamesView user={this.state.user} />} />
-          <Route path='/leaderboard' render={() => <LeaderBoard/>}/>
-          <Route path='/profile' render={() => <Profile/>}/>
-        </Switch>
-      </div>
+    return (
+      <BrowserRouter>
+      <div className="outerbox">
+        <NavBar logout={this.logout}/>
+        {this.state.user === null ? 
+          (<h6>
+            <Landing setUser={this.setUser} />
+          </h6>
+          ) : (
+          <div>
+            <Switch>
+              <Redirect exact from='/' to='/gameList'/>
+              <Route path='/gameList' render={() => <GamesView user={this.state.user} />} />
+              <Route path='/leaderboard' render={() => <LeaderBoard user={this.state.user}/>}/>
+              <Route path='/profile' render={() => <Profile/>}/>
+            </Switch>
+          </div>)}
+        </div>
     </BrowserRouter>
     );
     // return (
