@@ -1,0 +1,18 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-rows: auto;
+}
+
+.name {
+    grid-column: 1;
+}
+
+.points {
+    grid-column: 2;
+}
+
+.history {
+    grid-column: 3;
+}
