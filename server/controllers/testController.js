@@ -34,7 +34,7 @@ exports.getSubmissionEvaluation = (req, res) => {
   */
 
   // console.log(req.body);
-
+  // JSC - possibly need to grab time and length data here as well 
   //pulling data off of request body
   var submission = req.body.value || '';
   var test = req.body.testSuite;
@@ -66,6 +66,8 @@ exports.getSubmissionEvaluation = (req, res) => {
       
       // if (error) { return res.status(400).send(error); }
 
+      //JSC - need to add time(seconds left), and length data into this object for total points calculation
+
       // RegExp to find the number of tests that are passing and failing;
       console.log('data', data);
       var passing = data[/passing/.exec(data).index - 2];
@@ -77,7 +79,7 @@ exports.getSubmissionEvaluation = (req, res) => {
         passing: passing, 
         failing: failing,
         testResults: data // This is a printout from mocha with the details of the passing and failing tests
-      };
+      }; 
 
       res.send(returnObj);
     });
