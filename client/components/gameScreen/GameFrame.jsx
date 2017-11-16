@@ -7,11 +7,12 @@ import React from 'react';
 import axios from 'axios';
 import Prompt from './Prompt.jsx'; 
 import Timer from './Timer.jsx'; 
-import CodeEntryForm from './CodeEntryForm.jsx'
+import CodeEntryForm from './CodeEntryForm.jsx';
+import Result from './Result.jsx';
+
 // import Tests from './Tests' // this needs a file
 // import Xonsole from './Xonsole' // because 'Console' isn't a reserved word but it should be.
 // import RunXonsoleButton from './RunXonsoleButton' // this needs a file
-import SubmitButton from './SubmitButton.jsx' // this needs a file
 
 // Recieves props from: 
   // none
@@ -29,105 +30,85 @@ import SubmitButton from './SubmitButton.jsx' // this needs a file
 class GameFrame extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = {
       algorithm: null, 
       prompt: null, 
       seedCode: null, 
-      testSuite: null, 
-      timerbool: false,
+      testSuite: null,
+      value: '', // User's code now managed by this component's state
+      timerExpired: false,
+      result: {},
       // The below three are not currently being used. 
       isSubmitted: false, 
       isXonsoleRun: false, 
       isTimerRunning: false, 
     };
-  // console.log('gameObject', this.props.gameObject)
   
     this.algorithmID = this.props.gameObject.algorithmID;
     this.getAlgorithm = this.getAlgorithm.bind(this);
-    this.getSeedCode = this.getSeedCode.bind(this);
-    this.getTests = this.getTests.bind(this);
-    this.toggleSubmitStatus = this.toggleSubmitStatus.bind(this);
-    this.toggleRunXonsoleStatus = this.toggleRunXonsoleStatus.bind(this);
-    this.changeTimer = this.changeTimer.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onTimerExpired = this.onTimerExpired.bind(this);
+    // this.toggleSubmitStatus = this.toggleSubmitStatus.bind(this);
+    // this.toggleRunXonsoleStatus = this.toggleRunXonsoleStatus.bind(this);
+    // this.changeTimer = this.changeTimer.bind(this);
   }
 
-  //JSC 11-15-17 
-  // submitTimer() {
-  //   axios.get('/timer' + )
-  //   .then()
-  // }
-  changeTimer() {
-    this.setState({timerbool:true})
+  handleChange(value) {
+    this.state.value = value;
   }
 
-  //JSC 11-15-17 
-  // submitTimer() {
-  //   axios.get('/timer' + )
-  //   .then()
-  // }
+  onTimerExpired() {
+    this.handleSubmit(true);
+  }
 
-
-
-
-  getAlgorithm(algoId, cb) {
+  // Initial fetch
+  getAlgorithm(algoId) {
     axios.get('/algos/' + algoId) 
-    .then((algorithm) => {
+    .then((response) => {
       this.setState({
-        algorithm : algorithm.data
+        algorithm: response.data,
+        prompt: response.data.prompt,
+        seedCode: response.data.seedCode,
+        value: response.data.seedCode,
+        testSuite: response.data.testingSuite
       });
-      // run the response in a callback so that other functions can use it. 
-      // so far, getPrompt, getSeedCode, and getTests all use this. 
-      if (cb) {
-        cb(algorithm.data)
-      }; 
     });
   }
 
-  // these could be refactored into one function, but I think it is more readable to have them seperate. 
-  getPrompt(algoId) {
-    this.getAlgorithm(algoId, (algo) => {
-      var prompt = algo.prompt;
-      this.setState({ prompt });
+  // Managing user code state here means we can submit at any time, including when timer expires
+  // timerExpired is an optional argument used for when the timer actually expires
+  handleSubmit(timerExpired = false) {
+    axios.post('/test', {
+      value: this.state.value,
+      testSuite: this.state.testSuite,
+      algo: this.props.gameObject.algorithmID
+    })
+    .then((response) => {
+      this.setState({
+        result: response.data,
+        timerExpired: timerExpired
+      });
+    })
+    .catch((error) => {
+      this.setState({
+        result: { testResults: 'Unable to parse code' },
+        timerExpired: timerExpired
+      });
     });
   }
+  
+  // SAM 11/16/2017, Do we actually want to do this?
+  // toggleRunXonsoleStatus() {
+  //   this.setState({isXonsoleRun : !this.state.isXonsoleRun});
+  // }
 
-  getSeedCode(algoId) {
-    this.getAlgorithm(algoId, (algo) => {
-      var seedCode = algo.seedCode;
-      this.setState({ seedCode });
-    });
-  }
-
-  getTests(algoId) {
-    this.getAlgorithm(algoId, (algo) => {
-      var testSuite = algo.testingSuite;
-      this.setState({ testSuite });
-    });
-  }
-
-  // both of these functions handle the pressing of the buttons. When they are pressed, they change the state
-  // of the GameFrame, triggering a rerendering and passing down a true value to their respective children. 
-  // NIETHER OF THESE ARE BEING USED CURRENTLY, BUT PROBABLY SHOULD BE.
-  toggleSubmitStatus() {
-    this.setState({isSubmitted : !this.state.isSubmitted});
-  }
-  toggleRunXonsoleStatus() {
-    this.setState({isXonsoleRun : !this.state.isXonsoleRun});
-  }
-
-  componentWillMount() {
-    // on the first mounting of the game frame, we want to render the game. 
+  // Initial fetch
+  componentDidMount() {
     this.getAlgorithm(this.algorithmID);
-    this.getPrompt(this.algorithmID);
-    this.getSeedCode(this.algorithmID);
-    this.getTests(this.algorithmID);
   }
 
-  render(props){
-    // console.log('this.state.testSuite', this.state.testSuite)
-    // loading screen shows until state is updated completely. 
-    console.log('test')
+  render() {
     return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
     <div> Loading Game... </div> : 
     <div className="row">
@@ -142,10 +123,14 @@ class GameFrame extends React.Component {
               seedCode = {this.state.seedCode} 
               testSuite={this.state.testSuite}
               algo={this.props.gameObject.algorithmID}
-              bool={this.state.timerbool} /> 
+              value={this.state.value}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              timerExpired={this.state.timerExpired} /> 
+            <Result result={this.state.result} />
           </div> 
           <div className="col s3 container">
-            {<Timer bool={this.changeTimer}/> }
+            <Timer onTimerExpired={this.onTimerExpired}/>
           </div>
           <div className="inline-block-div"> 
             {/* We aren't using any of these, but you should be able to. 

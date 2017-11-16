@@ -37,13 +37,13 @@ class Page extends React.Component {
       <h6>
         <Landing setUser={this.setUser} />
       </h6>
-    ) : (
+      ) : (
       <BrowserRouter> 
-      <div>
-        <button onClick={this.logout}>Log out</button>
-        <GamesView user={this.state.user} />
-      </div>
-    </BrowserRouter>
+        <div>
+          <button onClick={this.logout}>Log out</button>
+          <GamesView user={this.state.user} />
+        </div>
+      </BrowserRouter>
     );
     // return (
     //   <Router>

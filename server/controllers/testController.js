@@ -63,6 +63,10 @@ exports.getSubmissionEvaluation = (req, res) => {
 
       // SAM 11/14/2017 - I initially wrote this but Mocha throws an error if the tests fail.
       // Good for us to review
+
+      if (!data) {
+        return res.sendStatus(400);
+      }
       
       // if (error) { return res.status(400).send(error); }
 
