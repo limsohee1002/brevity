@@ -115,9 +115,6 @@ class GameFrame extends React.Component {
        <div className="container">
         <div className="gameview">
           <div className="col s9 container">
-          <div className="col s3 container">
-            {<Timer bool={this.changeTimer}/> }
-          </div>
             <Prompt 
               promptDetails={this.state.prompt} 
               name={this.props.gameObject.name} />
@@ -132,6 +129,9 @@ class GameFrame extends React.Component {
               timerExpired={this.state.timerExpired} /> 
             <Result result={this.state.result} />
           </div> 
+          <div className="col s3 container">
+            {<Timer onTimerExpiredc={this.onTimerExpired}/> }
+          </div>
           <div className="inline-block-div"> 
             {/* We aren't using any of these, but you should be able to. 
             <Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>
