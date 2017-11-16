@@ -41,10 +41,9 @@ var algorithmSchema = new Schema({
   // We made the choice to put this in the algo instead of the game so that eventually 
   // you could render a component that showed all of the submissions that had been made 
   // across all games to a given algorithm. 
-  submissionHistory: {
-    type: Array, 
-    default: [], 
-  }, 
+  length: {
+    type: Number,
+  }
 
 });
 

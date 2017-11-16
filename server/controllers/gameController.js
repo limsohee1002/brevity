@@ -1,14 +1,28 @@
 var mongoose = require('mongoose');
 var Games = mongoose.model('gameSchema');
+var Algorithms = mongoose.model('algorithmSchema');
 
 // SAM 11/14/2017 - Didn't really verify these routes
+// Changing these routes to support sending back modified algorithm queries
+// Keeps the data more lightweight and modular
 
 // Get '/games' 
 exports.getAllGames = (req, res) => {
   // Empty search params returns all games. 
-  Games.find({}, (error, data) => {
+  // Games.find({}, (error, data) => {
+  //   if (error) { return res.status(404).send(error); }
+  //   res.send(data); 
+  // });
+  Algorithms.find({}, (error, data) => {
     if (error) { return res.status(404).send(error); }
-    res.send(data); 
+    let result = data.reduce((a, b) => {
+      a.push({
+        algorithmID: b._id,
+        name: b.name
+      });
+      return a;
+    }, []);
+    res.send(result);
   });
 };
 
