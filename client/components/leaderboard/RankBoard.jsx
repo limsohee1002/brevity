@@ -13,9 +13,9 @@ class RankBoard extends React.Component {
   render() {
     return(
       <div className="wrapper">
-        <div className="name">user name</div>
-        <div className="points">total points</div>
-        <div className="history">game history</div>
+        <h4 className="name">user name</h4>
+        <h4 className="points">total points</h4>
+        <h4 className="history">game history</h4>
         <div className="name">
         {this.props.allUsers.map((data) => <div>{data.username}</div>)}
         </div>
