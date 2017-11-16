@@ -56,7 +56,6 @@ class GamesView extends React.Component {
            <UserInfo username={this.props.user.username} points={this.state.points} level={this.state.level} />
          </div>
          <Switch>
-           <Redirect exact from='/' to='/gameList'/>
            <Route exact path='/gameList' render={() => <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}/>
            {this.state.games.map((game) => <Route path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame gameObject={game} />} />)}
          </Switch>
