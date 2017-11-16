@@ -32,8 +32,9 @@ class GamesView extends React.Component {
 // Will also need to replace user data, should Main.jsx handle this?
   componentDidMount() {
     axios.get('/games')
-    .then((result) => {
-      this.setState({ games: result.data });
+    .then((response) => {
+      console.log(response.data);
+      this.setState({ games: response.data });
     })
     .catch((err) => {
       throw(err);
