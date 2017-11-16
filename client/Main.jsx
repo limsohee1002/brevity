@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Landing from './components/landing/Landing.jsx';
 import GamesView from './components/gamesList/GamesView.jsx';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Route, Redirect } from 'react-router';
+import { BrowserRouter, Link, Switch } from 'react-router-dom'
+import LeaderBoard from './components/leaderboard/Leaderboard.jsx';
+import Profile from './components/profile/Profile.jsx';
 //all components will be attached to this Page component.
 //Page component will be rendered to the html file
 class Page extends React.Component {
@@ -40,8 +43,18 @@ class Page extends React.Component {
     ) : (
       <BrowserRouter> 
       <div>
+        <ul>
+          <li><Link to='/gameList'>Games</Link></li>
+          <li><Link to='/leaderboard'>Leaderboard</Link></li>
+          <li><Link to='/profile'>Profile</Link></li>
+        </ul>
         <button onClick={this.logout}>Log out</button>
-        <GamesView user={this.state.user} />
+        <Switch>
+          <Redirect exact from='/' to='/gameList'/>
+          <Route path='/gameList' render={() => <GamesView user={this.state.user} />} />
+          <Route path='/leaderboard' render={() => <LeaderBoard/>}/>
+          <Route path='/profile' render={() => <Profile/>}/>
+        </Switch>
       </div>
     </BrowserRouter>
     );
