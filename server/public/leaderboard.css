@@ -4,10 +4,9 @@
 
 .wrapper {
   display: grid;
-  /* grid-template-columns: repeat(4, 1fr); */
-  grid-template-columns: 70px 1fr 1fr 1fr;
+  grid-template-columns: 40px 1fr 1fr 1fr;
   grid-gap: 10px;
-  grid-rows: auto;
+  grid-row: auto;
   margin: 50px 0 10px 0;
   padding: 15px;
   border: solid pink 1px;
@@ -21,9 +20,7 @@
 
 .innerwrapper {
   display: grid;
-  /* grid-template-columns: repeat(4, 1fr);
-   */
-  grid-template-columns: 70px 1fr 1fr 1fr;
+  grid-template-columns: 40px 1fr 1fr 1fr;
   grid-gap: 10px;
   grid-row: auto;
   margin: 10px 0 10px 0;
@@ -108,4 +105,15 @@
 .myRank {
   width: 70%;
   margin: auto;
+}
+
+.profile_summary {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.forms {
+  width: 80%;
+  margin: 40px 0;
 }

@@ -54,7 +54,7 @@ nav .brand-logo {
   }
 }
 .game-list {
-  width: 70%;
+  width: 80%;
   clear: both;
   margin: auto;
 }
@@ -63,7 +63,8 @@ nav .brand-logo {
 }
 .games {
   margin: auto;
-  margin-top: 100px;
+  margin-top: 80px;
+  margin-bottom: 30px;
 }
 #signup {
   margin-right: 16px;
