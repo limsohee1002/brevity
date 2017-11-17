@@ -9,11 +9,12 @@ const customHistory = createBrowserHistory()
 import axios from 'axios';
 
 import UserInfo from './UserInfo.jsx';
+import Profile from '../profile/Profile.jsx'
 import GamesList from './GamesList.jsx';
 import GameFrame from '../gameScreen/GameFrame.jsx';
 //GamesView -> GamesList
 //      \----> GameFrame
-//       \---> UserInfo 
+//       \---> UserInfo
 
 class GamesView extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class GamesView extends React.Component {
     };
     this.onGameSelect = this.onGameSelect.bind(this);
   };
-  
+
 // Upon the GamesView mounting, we are making a get request to the /games route which will return an array of games to render on the page
 // Will also need to replace user data, should Main.jsx handle this?
   componentDidMount() {
@@ -46,7 +47,7 @@ class GamesView extends React.Component {
   }
 
   //<Redirect from="/" exact to="/gameList" />
-//renders two components: UserInfo with dummy user date and GamesList with a list of available games. 
+//renders two components: UserInfo with dummy user date and GamesList with a list of available games.
 //The username prop is coming from main.js in the public folder
   render(){
     return (
@@ -63,4 +64,4 @@ class GamesView extends React.Component {
   }
 }
 
-export default GamesView; 
+export default GamesView;
