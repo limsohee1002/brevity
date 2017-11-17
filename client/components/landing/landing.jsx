@@ -95,7 +95,7 @@ class Landing extends React.Component {
           <input type="text" value={this.state.username} onChange={this.handleUsername} placeholder="Username"/>
           <i className="material-icons prefix">edit</i>
           <input type="password" value={this.state.password} onChange={this.handlePassword} placeholder="Password"/>
-          <div>
+          <div className="login_buttons">
             <button className="btn waves-effect waves-light right" id="login" type="submit" name="action" onClick={this.handleLogin}>
               Log In
               <i className="material-icons right">send</i>

@@ -9,7 +9,7 @@ class RankBoard extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="outerwrapper">
         <div className="wrapper">
           <h5 className="name">user name</h5>
           <h5 className="points">total points</h5>
