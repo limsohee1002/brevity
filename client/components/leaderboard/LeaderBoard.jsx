@@ -4,19 +4,23 @@ import axios from 'axios';
 
 class LeaderBoard extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       allUsers: [],
       defaultPhoto: 'https://harvardgazette.files.wordpress.com/2017/03/mark-zuckerberg-headshot-11.jpg',
       userRank: null
-    }
+    };
   };
 
   componentDidMount() {
     axios.get('/users').then((res) => {
       let users = res.data.sort((a, b) => b.totalPoints - a.totalPoints)
-      this.setState({allUsers: users})
-    }).catch((err) => console.log('user fetch error'))
+      this.setState({
+        allUsers: users
+      });
+    }).catch((error) => {
+      console.log('user fetch error', error)
+    });
   }
 
   getUserRank() {
@@ -43,7 +47,7 @@ class LeaderBoard extends React.Component {
         </div>
         <RankBoard allUsers={this.state.allUsers}/>
       </div>
-    )
+    );
   }
 }
 export default LeaderBoard; 
