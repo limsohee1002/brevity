@@ -74,9 +74,13 @@ exports.getSubmissionEvaluation = (req, res) => {
 
       // RegExp to find the number of tests that are passing and failing;
       console.log('data', data);
-      var passing = data[/passing/.exec(data).index - 2];
+      var passingIdx = /passing/.exec(data).index;
+      var passing = data[passingIdx - 2];
+      passing = Number(data[passingIdx - 3]) ? data[passingIdx - 3] + passing : passing;
+
       var regFailing = /failing/.exec(data) || false;
       var failing = regFailing ? data[regFailing.index - 2] : '0';
+      failing = Number(data[regFailing.index - 3]) ? data[regFailing.index - 3] + failing : failing;
 
       // Create object to return back for the post request
       var returnObj = {

@@ -15,9 +15,7 @@ class LeaderBoard extends React.Component {
   componentDidMount() {
     axios.get('/users').then((res) => {
       let users = res.data.sort((a, b) => b.totalPoints - a.totalPoints)
-      this.setState({
-        allUsers: users
-      });
+      this.setState({ allUsers: users });
     }).catch((error) => {
       console.log('user fetch error', error)
     });
