@@ -22,6 +22,7 @@ module.exports = (app) => {
   app.post('/users/auth', user.authUser); // Log-in
 
   // Routes to handle getting and updating specific user. 
+  app.post('/users/points', user.updatePoints);
   app.get('/users/:username', user.getSpecificUserData);
   app.put('/users/:username', user.updateUserData);
   app.delete('/users/:username', user.deleteUser);

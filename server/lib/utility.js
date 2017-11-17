@@ -14,9 +14,39 @@ const createSession = (req, res, newUser) => req.session.regenerate(() => {
   res.send(newUser);
 });
 
+var testPoints = (testsPassed, testsFailed) => {
+  return 500*(testsPassed/ (testsPassed+testsFailed))
+}
+
+var timePoints = (timeLeft) => {
+  var speedPoints = 250;
+  if (timeLeft === true) {
+    speedPoints = 125;
+  }
+    return speedPoints;
+}
+
+var lengthPoints = (answerLength, userCodeLength) => {
+  var lengthPoints = 250;
+  if (userCodelength > answerLength) {
+    lengthPoints = 125;
+  } 
+  return lengthPoints;
+}
+
+var totalPoints = (testsPassed,testsFailed, timeLeft, /*answerLength, userCodelength */) => {
+  return (testPoints(testsPassed, testsFailed) + timePoints(timeLeft) /*+ lengthPoints(answerLength, userCodelength)*/);
+}
+
+
+
 module.exports = {
   logger,
   isLoggedIn,
   checkUser,
-  createSession
+  createSession,
+  testPoints,
+  timePoints,
+  lengthPoints,
+  totalPoints
 };
