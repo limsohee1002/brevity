@@ -40,7 +40,7 @@ class Page extends React.Component {
     return (
       <BrowserRouter>
         <div className="outerbox">
-          <NavBar logout={this.logout}/>
+          <NavBar logout={this.logout} show={this.state.user !== null} />
           {this.state.user === null ? 
           (<h6>
             <Landing setUser={this.setUser} />
