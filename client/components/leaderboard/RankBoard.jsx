@@ -13,17 +13,20 @@ class RankBoard extends React.Component {
         <div className="wrapper">
           <h5 className="name">user name</h5>
           <h5 className="points">total points</h5>
-          <h5 className="history">game history</h5>
+          <h5 className="history">completed games</h5>
         </div>
-        {this.props.allUsers.map((data, i) => <div key={data.id} className="innerwrapper">
-            <div key={data.id + 'name'} className="name">
+        {this.props.allUsers.map((data, i) => <div key={data._id} className="innerwrapper">
+            <div key={data._id + 'profilePicture'} className="profilePicture">
+            <img src={data.profilePicture}/>
+            </div>
+            <div key={data._id + 'name'} className="name">
               {data.username}
             </div>
-            <div key={data.id + 'points'} className="points">
+            <div key={data._id + 'points'} className="points">
               {data.totalPoints}
             </div>
-            <div key={data.id + 'history'} className="history">
-              {data.gameHistory}
+            <div key={data._id + 'history'} className="history">
+              {data.gameHistory.length}
             </div>
           </div>)}
       </div>
