@@ -44,7 +44,12 @@ var userSchema = new Schema({
   gameHistory: {
     type: Array, 
     default: []
-  }, 
+  },
+
+  aboutMe: {
+    type: String,
+    default: 'I\'m not very interesting'
+  }
 });
 
 mongoose.model('userSchema', userSchema);
