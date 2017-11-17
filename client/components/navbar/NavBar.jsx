@@ -17,6 +17,6 @@ const NavBar = (props) => (
       <li id="logout" onClick={props.logout}><Link to='/'>Log out</Link></li>
     </ul>
   </nav>
-)
+);
 
 export default NavBar;
