@@ -20,9 +20,7 @@ class GamesView extends React.Component {
     super(props);
     // Sets default/dummy values for points and level -> replace with user data
     this.state = {
-      points: 1000,
-      level: 1,
-      games: [1,2,3,4,5],
+      games: [],
       selectedGame: null
     };
     this.onGameSelect = this.onGameSelect.bind(this);
@@ -54,7 +52,7 @@ class GamesView extends React.Component {
     return (
         <div>
          <div className="red lighten-4 center">
-           <UserInfo username={this.props.user.username} points={this.state.points} level={this.state.level} />
+           <UserInfo username={this.props.user.username} points={this.props.user.points} level={this.props.user.level} />
          </div>
          <Switch>
            <Route exact path='/gameList' render={() => <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}/>
