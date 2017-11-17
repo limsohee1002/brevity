@@ -37,14 +37,13 @@ class LeaderBoard extends React.Component {
         <div className="myRank">
           <div className="profile-pic">
             {this.props.profilepic ? <img src={this.props.profilepic}/> : <img src={this.state.defaultPhoto}/>}
+            <div>
+              <h3>{this.props.user.username}</h3>
+              <h4>your rank is: {this.state.allUsers.length > 0 ? this.getUserRank() : 'loading'}</h4>
+            </div>
           </div>
-          <h3>{this.props.user.username}</h3>
-          <h4>your ranking is:</h4>
-          <div>
-            {this.state.allUsers.length > 0 ? this.getUserRank() : 'loading'}
-          </div>
+          <RankBoard allUsers={this.state.allUsers}/>
         </div>
-        <RankBoard allUsers={this.state.allUsers}/>
       </div>
     )
   }
