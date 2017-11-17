@@ -34,8 +34,10 @@ var userSchema = new Schema({
   // pictures are going to be larger than 16mb in size. 
   // Need to do more research to see if this will actually work. 
   profilePicture: {
-    data: Buffer, 
-    contentType: String 
+    // data: Buffer, 
+    // contentType: String 
+    type: String,
+    default: 'https://files.slack.com/files-pri/T2SUXDE72-F7YSEM5DW/bestpin.png'
   }, 
 
   // TODO: Append to this onClick of submit button. 

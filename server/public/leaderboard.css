@@ -4,7 +4,8 @@
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: 70px 1fr 1fr 1fr;
   grid-gap: 10px;
   grid-rows: auto;
   margin: 50px 0 10px 0;
@@ -20,7 +21,9 @@
 
 .innerwrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(4, 1fr);
+   */
+  grid-template-columns: 70px 1fr 1fr 1fr;
   grid-gap: 10px;
   grid-row: auto;
   margin: 10px 0 10px 0;
@@ -31,17 +34,19 @@
 .innerwrapper:hover {
   background-color: rgba(255, 192, 203, 1);
 }
-
-.name {
+.profilePicture {
   grid-column: 1;
 }
-
-.points {
+.name {
   grid-column: 2;
 }
 
-.history {
+.points {
   grid-column: 3;
+}
+
+.history {
+  grid-column: 4;
 }
 
 .profile-pic {
@@ -57,6 +62,14 @@
   margin-top: 100px;
   /* border: solid grey 1px; */
   /* float: left; */
+}
+
+.profilePicture > img {
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    /* margin-top: 100px; */
 }
 
 .profile-pic > div {
