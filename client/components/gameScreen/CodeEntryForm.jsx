@@ -42,15 +42,15 @@ class CodeEntryForm extends React.Component {
             readOnly={this.props.timerExpired}
             onChange={this.onChange}
             value={this.props.value}
-            style={{ height: '400px' }}
+            style={{ width: '100%', height: '400px' }}
             ref={(ref) => { this.ace = ref; }} // Let's put things into scope
             enableBasicAutocompletion={true}
             enableLiveAutocompletion={true}
             enableSnippets={true}
             tabSize={2} />
-        </div>
+          </div>
         <button className="btn waves-effect waves-light" disabled={this.props.timerExpired} onClick={this.onSubmit}>Submit (will clear code)</button>
-      </div> : <div> Loading... </div>
+      </div> : <div className="loading"> Loading... </div>
   }
 }
 

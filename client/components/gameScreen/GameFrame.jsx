@@ -110,36 +110,34 @@ class GameFrame extends React.Component {
 
   render() {
     return (this.state.testSuite === null || this.state.prompt === null || this.state.seedCode === null || this.state.algorithm === null) ? 
-    <div> Loading Game... </div> : 
-    <div className="gameview">
-       <div className="container">
-        <div className="gameview">
-          <div className="col s9 container">
-            <div className="col s3 container">
-              {<Timer onTimerExpiredc={this.onTimerExpired}/> }
-            </div>
-            <Prompt 
-              promptDetails={this.state.prompt} 
-              name={this.props.gameObject.name} />
-            <br/>
-            <CodeEntryForm 
-              seedCode = {this.state.seedCode} 
-              testSuite={this.state.testSuite}
-              algo={this.props.gameObject.algorithmID}
-              value={this.state.value}
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-              timerExpired={this.state.timerExpired} /> 
-            <Result result={this.state.result} />
-          </div> 
-          <div className="inline-block-div"> 
-            {/* We aren't using any of these, but you should be able to. 
-            <Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>
-            <RunXonsoleButton toggleRunXonsoleStatus={this.toggleRunXonsoleStatus}/>  
-          */}	
+    <div className="loading"> Loading Game... </div> : 
+    <div className="container">
+      <div className="gameview">
+        <div className="col s9 container">
+          <div className="col s3 container">
+            {<Timer onTimerExpiredc={this.onTimerExpired}/> }
           </div>
+          <Prompt 
+            promptDetails={this.state.prompt} 
+            name={this.props.gameObject.name} />
+          <br/>
+          <CodeEntryForm 
+            seedCode = {this.state.seedCode} 
+            testSuite={this.state.testSuite}
+            algo={this.props.gameObject.algorithmID}
+            value={this.state.value}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            timerExpired={this.state.timerExpired} /> 
+          <Result result={this.state.result} />
         </div> 
-      </div>
+        <div className="inline-block-div"> 
+          {/* We aren't using any of these, but you should be able to. 
+          <Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>
+          <RunXonsoleButton toggleRunXonsoleStatus={this.toggleRunXonsoleStatus}/>  
+        */}	
+        </div>
+      </div> 
     </div>
   }
 }

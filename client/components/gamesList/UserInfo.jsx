@@ -7,13 +7,10 @@ import { Link, IndexRoute, BrowserRouter as Router } from 'react-router-dom';
 //     \--> UserInfo
 
 const UserInfo = props => (
-  <div className="row" idname="userinfo">
+  <div className="row z-depth-2" id="userinfo">
     <h5 className="col s3">
-      Username:
+      Username: 
       <Link to={`/profile/${props.username}`}> {props.username}</Link>
-    </h5>
-    <h5 className="col s3">
-      <Link to={`/gameList/`}>Code!</Link>
     </h5>
     <h5 className="col s3">Points: {props.points}</h5>
     <h5 className="col s3">Level: {props.level}</h5>
