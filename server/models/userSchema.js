@@ -19,7 +19,7 @@ var userSchema = new Schema({
 
   // People start out with 100 totalPoints, but this is decremented as they 
   // play games and incremented as they win games. 
-  totalPoints: {
+  totalPointsg: {
     type: Number, 
     default : 100
   }, 
@@ -44,7 +44,12 @@ var userSchema = new Schema({
   gameHistory: {
     type: Array, 
     default: []
-  }, 
+  },
+
+  aboutMe: {
+    type: String,
+    default: 'I\'m not very interesting'
+  }
 });
 
 mongoose.model('userSchema', userSchema);
