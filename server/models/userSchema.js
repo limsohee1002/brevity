@@ -19,7 +19,7 @@ var userSchema = new Schema({
 
   // People start out with 100 totalPoints, but this is decremented as they 
   // play games and incremented as they win games. 
-  totalPointsg: {
+  totalPoints: {
     type: Number, 
     default : 100
   }, 
