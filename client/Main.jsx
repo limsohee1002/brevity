@@ -41,7 +41,7 @@ class Page extends React.Component {
       <BrowserRouter>
         <div className="outerbox">
           <NavBar logout={this.logout}/>
-          {this.state.user === null ? 
+          {this.state.user === null ?
           (<h6>
             <Landing setUser={this.setUser} />
             </h6>
@@ -51,7 +51,7 @@ class Page extends React.Component {
               <Redirect exact from='/' to='/gameList'/>
               <Route path='/gameList' render={() => <GamesView user={this.state.user} />} />
               <Route path='/leaderboard' render={() => <LeaderBoard user={this.state.user}/>}/>
-              <Route path='/profile' render={() => <Profile/>}/>
+              <Route path='/profile' render={() => <Profile user={this.state.user}/>}/>
             </Switch>
           </div>)}
         </div>
