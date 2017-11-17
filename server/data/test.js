@@ -7,7 +7,7 @@ var assert = chai.assert;
 //
 // sort this array
 //
-describe('isSubsetOf', function(){
+describe('bubbleSort', function(){
   
   it(': sort it', function() {
     Array.prototype.sort = null;

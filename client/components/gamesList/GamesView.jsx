@@ -56,7 +56,7 @@ class GamesView extends React.Component {
          </div>
          <Switch>
            <Route exact path='/gameList' render={() => <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}/>
-           {this.state.games.map((game, i) => <Route key={i} path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame key={i} gameObject={game} />} />)}
+           {this.state.games.map((game, i) => <Route key={i} path={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)} render={() => <GameFrame setUser={this.props.setUser} user={this.props.user} key={i} gameObject={game} />} />)}
          </Switch>
        </div>
     );

@@ -112,6 +112,18 @@ exports.updateUserData = (req, res) => {
   });
 };
 
+exports.updatePoints = (req, res) => { //add points algo calculations here 
+  var points = util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired);
+  Users.findOneAndUpdate({username: req.body.user.username}, {$set: {totalPoints: points}}, {new: true}, (error, user) => {
+    if (error) {res.status(400).send(error)};
+    res.send(user)
+  })
+  console.log('req.body:', req.body)
+  console.log('here', util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired))
+  console.log('passing', req.body.result.failing)
+  // console.log('req.body userController: ', req.body)
+}
+
 // delete '/users/:username' //this has not been tested. 
 exports.deleteUser = (req, res) => {
   Users.remove ({ username : req.params.username }, (error, user) => {

@@ -55,6 +55,7 @@ class GameFrame extends React.Component {
   }
 
   handleChange(value) {
+    // console.log('value:', value)
     this.state.value = value;
   }
 
@@ -79,16 +80,28 @@ class GameFrame extends React.Component {
   // Managing user code state here means we can submit at any time, including when timer expires
   // timerExpired is an optional argument used for when the timer actually expires
   handleSubmit(timerExpired = false) {
+    let newState = { timerExpired };
     axios.post('/test', {
       value: this.state.value,
       testSuite: this.state.testSuite,
       algo: this.props.gameObject.algorithmID
     })
     .then((response) => {
-      this.setState({
-        result: response.data,
-        timerExpired: timerExpired
-      });
+      newState.result = response.data;
+      return axios.post('/users/points', {
+        result: newState.result,
+        value: this.state.value,
+        timerExpired: timerExpired,
+        user: this.props.user
+      })
+      // this.setState({
+      //   result: response.data,
+      //   timerExpired: timerExpired
+      // });
+    })
+    .then((response) => {
+      this.props.setUser(response.data);
+      this.setState(newState)
     })
     .catch((error) => {
       this.setState({
@@ -115,7 +128,7 @@ class GameFrame extends React.Component {
       <div className="gameview">
         <div className="col s9 container">
           <div className="col s3 container">
-            {<Timer onTimerExpiredc={this.onTimerExpired}/> }
+            {<Timer onTimerExpired={this.onTimerExpired}/> }
           </div>
           <Prompt 
             promptDetails={this.state.prompt} 
@@ -128,7 +141,8 @@ class GameFrame extends React.Component {
             value={this.state.value}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
-            timerExpired={this.state.timerExpired} /> 
+            timerExpired={this.state.timerExpired} 
+            result={this.state.result}/> 
           <Result result={this.state.result} />
         </div> 
         <div className="inline-block-div"> 
