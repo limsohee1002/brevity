@@ -4,6 +4,7 @@ import React from 'react';
 import brace from 'brace';
 import ReactAce from 'react-ace-editor';
 import AceEditor from 'react-ace'
+import axios from 'axios';
 
 import 'brace/mode/javascript';
 import 'brace/snippets/javascript';
@@ -25,11 +26,25 @@ class CodeEntryForm extends React.Component {
     this.props.handleChange(editor.getValue());
   }
 
+  // sendPoints() {
+  //   axios.post('/users/points', {
+  //     value: this.props.value, 
+  //     timerExpired: this.props.timerExpired,
+  //     result: this.props.result
+  //   })
+  //   .then((response) => {
+  //     this.setState({result: response.data,
+  //     timerExpired: timerExpired})
+  //   }) 
+  //   .catch((error) => {
+  //     console.error(error)
+  //   })
+  // }
   // Handle button submit
   onSubmit(cb) {
     this.props.handleSubmit();
   }
-
+  
   render() {
     // console.log('this.props.testSuite in CodeEntryForm', this.props.testSuite)
     // this displays 'loading...' until the seedcode has loaded from the gameFrame. 
@@ -49,7 +64,8 @@ class CodeEntryForm extends React.Component {
             enableSnippets={true}
             tabSize={2} />
           </div>
-        <button className="btn waves-effect waves-light" disabled={this.props.timerExpired} onClick={this.onSubmit}>Submit (will clear code)</button>
+        <button className="btn waves-effect waves-light" disabled={this.props.timerExpired} 
+          onClick={this.onSubmit}>Submit</button>
       </div> : <div className="loading"> Loading... </div>
   }
 }

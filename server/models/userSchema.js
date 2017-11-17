@@ -21,7 +21,7 @@ var userSchema = new Schema({
   // play games and incremented as they win games. 
   totalPoints: {
     type: Number, 
-    default : 100
+    default : 0
   }, 
 
   // TODO: Update level based on gameHistory.length? 
