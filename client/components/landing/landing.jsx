@@ -90,25 +90,23 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <form className="login">
-            <i className="material-icons prefix">account_circle</i>
-            <input type="text" value={this.state.username} onChange={this.handleUsername} placeholder="Username"/>
-            <i className="material-icons prefix">edit</i>
-            <input type="password" value={this.state.password} onChange={this.handlePassword} placeholder="Password"/>
-            <div>
-              <button className="btn waves-effect waves-light right" id="login" type="submit" name="action" onClick={this.handleLogin}>
-                Log In
-                <i className="material-icons right">send</i>
-              </button>
-              <button className="btn waves-effect waves-light right" id="signup" type="submit" name="action" onClick={this.handleSignUp}>
-                Sign Up
-                <i className="material-icons right">send</i>
-              </button>
-            </div>
-          </form>
-          <span className="red-text">{this.state.error}</span>
-        </div>
+        <form className="login">
+          <i className="material-icons prefix">account_circle</i>
+          <input type="text" value={this.state.username} onChange={this.handleUsername} placeholder="Username"/>
+          <i className="material-icons prefix">edit</i>
+          <input type="password" value={this.state.password} onChange={this.handlePassword} placeholder="Password"/>
+          <div>
+            <button className="btn waves-effect waves-light right" id="login" type="submit" name="action" onClick={this.handleLogin}>
+              Log In
+              <i className="material-icons right">send</i>
+            </button>
+            <button className="btn waves-effect waves-light right" id="signup" type="submit" name="action" onClick={this.handleSignUp}>
+              Sign Up
+              <i className="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+        <span className="red-text">{this.state.error}</span>
       </div>
     );
   }

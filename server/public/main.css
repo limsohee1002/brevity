@@ -24,22 +24,32 @@
   margin: 0;
   padding: 0;
 }
+.nav-list li a {
+  padding-left: 0;
+}
+nav .brand-logo {
+  margin-left: 16px;
+}
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    left: 15%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}
 .game-list {
   width: 70%;
   clear: both;
   margin: auto;
 }
-
 .gametitle {
   text-align: center;
 
 }
-
 .games {
   margin: auto;
   margin-top: 100px;
 }
-
 #signup {
   margin-right: 16px;
   background-color: #2a87bf;
@@ -49,6 +59,9 @@
 }
 
 .row {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
   margin: auto;
 }
 
@@ -59,6 +72,14 @@
   float: none;
 }
 
+.loading {
+  display: flex;
+  width: 100%;
+  min-height: 128px;
+  align-items: center;
+  justify-content: center;
+}
+
 .gameview {
   float: none;
   width: 75%;
@@ -67,9 +88,25 @@
 }
 
 .time {
+  z-index: 1000;
   position: fixed;
-  float: right;
-  margin-left: 60%;
+  right: 128px;
+  bottom: 128px;
+}
+.game_title {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+#userinfo h5 {
+  width: 33%;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  justify-content: center;
 }
 /* .row .col {
   float: none;

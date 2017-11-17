@@ -19,12 +19,12 @@ class NavBar extends React.Component {
           <h5 className="brand-logo">Brevity</h5>
         </div>
       </div>
-      <ul className="nav-button">
-          <li><Link to='/gameList'>Games</Link></li>
-          <li><Link to='/leaderboard'>Leaderboard</Link></li>
-          <li><Link to='/profile'>Profile</Link></li>
-          <li onClick={this.props.logout}><Link to='/'>Log out</Link></li>
-        </ul>
+      <ul className="nav-button nav-list">
+        <li><Link to='/gameList'>Code!</Link></li>
+        <li><Link to='/leaderboard'>Leaderboard</Link></li>
+        <li><Link to='/profile'>Profile</Link></li>
+        <li onClick={this.props.logout}><Link to='/'>Log out</Link></li>
+      </ul>
     </nav>
     );
   }

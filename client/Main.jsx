@@ -39,12 +39,12 @@ class Page extends React.Component {
     // this.state.user gets defined by the setUser function in Lander.
     return (
       <BrowserRouter>
-      <div className="outerbox">
-        <NavBar logout={this.logout}/>
-        {this.state.user === null ? 
+        <div className="outerbox">
+          <NavBar logout={this.logout}/>
+          {this.state.user === null ? 
           (<h6>
             <Landing setUser={this.setUser} />
-          </h6>
+            </h6>
           ) : (
           <div>
             <Switch>
@@ -55,31 +55,8 @@ class Page extends React.Component {
             </Switch>
           </div>)}
         </div>
-    </BrowserRouter>
+      </BrowserRouter>
     );
-    // return (
-    //   <Router>
-    //     <div>
-    //       <ul>
-    //         <li>
-    //           <Link to="/">Signup/Signin</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/games">Games</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/profile/:id">Profile</Link>
-    //         </li>
-    //       </ul>
-    //
-    //       <hr />
-    //
-    //       <Route exact path="/" component={Lander} />
-    //       <Route path="/games" component={GamesView} />
-    //       <Route path="/profile/:id" component={Profile} />
-    //     </div>
-    //   </Router>
-    // );
   }
 }
 
