@@ -106,8 +106,8 @@ nav .brand-logo {
 .time {
   z-index: 1000;
   position: fixed;
-  right: 128px;
-  bottom: 128px;
+  left: calc(100% - 128px);
+  top: calc(100% - 128px);
 }
 .game_title {
   height: 64px;

@@ -115,7 +115,7 @@ class GameFrame extends React.Component {
       <div className="gameview">
         <div className="col s9 container">
           <div className="col s3 container">
-            {<Timer onTimerExpiredc={this.onTimerExpired}/> }
+            {<Timer onTimerExpired={this.onTimerExpired} />}
           </div>
           <Prompt 
             promptDetails={this.state.prompt} 
