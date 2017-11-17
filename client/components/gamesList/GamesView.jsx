@@ -52,7 +52,7 @@ class GamesView extends React.Component {
     return (
         <div>
          <div className="red lighten-4 center">
-           <UserInfo username={this.props.user.username} points={this.props.user.points} level={this.props.user.level} />
+           <UserInfo username={this.props.user.username} points={this.props.user.totalPoints} level={this.props.user.level} />
          </div>
          <Switch>
            <Route exact path='/gameList' render={() => <GamesList gamesList={this.state.games} onGameSelect={this.onGameSelect} />}/>
