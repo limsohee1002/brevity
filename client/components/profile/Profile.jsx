@@ -63,7 +63,7 @@ class Profile extends React.Component {
 
   render(props) {
     return (
-      <div>
+      <div className="profile_summary">
         <div className="profile-pic">
           {this.props.user.profilePicture ? <img src={this.props.user.profilePicture}/> : <img src={this.state.defaultPhoto}/>}
         </div>
