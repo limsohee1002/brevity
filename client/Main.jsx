@@ -9,8 +9,7 @@ import LeaderBoard from './components/leaderboard/Leaderboard.jsx';
 import Profile from './components/profile/Profile.jsx';
 import NavBar from './components/navbar/NavBar.jsx';
 import PublicProfile from './components/profile/PublicProfile.jsx';
-//all components will be attached to this Page component.
-//Page component will be rendered to the html file
+
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +18,7 @@ class Page extends React.Component {
     };
     this.setUser = this.setUser.bind(this);
     this.logout = this.logout.bind(this);
+    this.checkUser.bind(this);
   }
 
   setUser(user) {
@@ -33,6 +33,20 @@ class Page extends React.Component {
     .catch((error) => {
       this.setState({ user: null });
     });
+  }
+
+  checkUser() {
+    axios.get('/users/auth')
+    .then((response) => {
+      this.setState({ user: response.data });
+    })
+    .catch((error) => {
+      console.log('User session expired');
+    });
+  }
+
+  componentDidMount() {
+    this.checkUser();
   }
 
   render(props) {

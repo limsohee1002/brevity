@@ -6,7 +6,7 @@ const logger = (req, res, next) => {
 const isLoggedIn = (req) => req.session ? !!req.session.user : false;
 
 const checkUser = (req, res) => {
-  isLoggedIn(req) ? res.send(req.session.user) : res.sendStatus(404);
+  isLoggedIn(req) ? createSession(req, res, req.session.user) : res.sendStatus(404);
 };
 
 const createSession = (req, res, newUser) => req.session.regenerate(() => {

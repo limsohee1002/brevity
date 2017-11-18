@@ -1,89 +1,23 @@
-var deepEquals = require('./submission.js')
+var nthFibonacci = require('./submission.js')
 var chai = require('chai'); 
 var mocha = require('mocha');
 var should = chai.should();
-
-describe('deepEquals()', function(){
-  it('should return true for two empty objects', function(){
-    var expected = true;
-    var actual = deepEquals({}, {});
-    actual.should.equal(expected);
+describe('nthFibonacci', function() {
+  it('should exist', function(){
+    should.exist(nthFibonacci);
   });
-  it('distinguishes between objects and arrays', function() {
-    var a = { foo: [2, { bar: {}}]};
-    var b = { foo: [2, { bar: []}]};
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
+  it('should return integers', function(){
+    var result = nthFibonacci(0);
+    should.exist(result);
+    should.exist(Number(result));
   });
-  it('should use deep equality', function(){
-    var a = { foo: 1 };
-    var b = { foo: '1' };
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
+  it('should handle the base cases with ease', function(){
+    nthFibonacci(0).should.equal(0);
+    nthFibonacci(1).should.equal(1);
   });
-  it('should return true for two objects with the same keys and values', function(){
-    var a = { foo: 'bar' };
-    var b = { foo: 'bar' };
-    var expected = true;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return false for two objects with the same keys and but different values', function(){
-    var a = { foo: 'bar' };
-    var b = { foo: 'pow' };
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return false for two objects with different number of keys', function(){
-    var a = { foo: 'bar' };
-    var b = { foo: 'bar', biz: 'baz' };
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return false for two objects with different number of keys', function(){
-    var a = { foo: 'bar', biz: 'baz' };
-    var b = { foo:'bar' };
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return true for similar nested object properties', function(){
-    var a = { foo: 1, b: { c: 3 } };
-    var b = { foo: 1, b: { c: 3 } };
-    var expected = true;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return false for dissimilar nested object properties', function(){
-    var a = { foo: 1, b: { c: 3 } };
-    var b = { foo: 1, b: { c:'potato' } };
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return false for dissimilar nested object properties', function(){
-    var a = { foo: 1, b: { c: 'potato'} };
-    var b = { foo: 1, b: { c: 3 } };
-    var expected = false;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return true for similar excessively nested object properties', function(){
-    var a = { foo: 1, b: { c: { d: { e: 'potato' } } } };
-    var b = { foo: 1, b: { c: { d: { e: 'potato' } } } };
-    var expected = true;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
-  });
-  it('should return true for similar excessively nested object properties', function(){
-    var a = { b: { c: { d: { e: 'potato' } } }, foo: 1 };
-    var b = { foo: 1, b: { c: { d: { e: 'potato' } } } };
-    var expected = true;
-    var actual = deepEquals(a, b);
-    actual.should.equal(expected);
+  it('should return the nth Fibonacci number for a given n', function(){
+    nthFibonacci(5).should.equal(5);
+    nthFibonacci(10).should.equal(55);
+    nthFibonacci(20).should.equal(6765);
   });
 });

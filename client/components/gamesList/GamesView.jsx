@@ -32,7 +32,11 @@ class GamesView extends React.Component {
   componentDidMount() {
     axios.get('/games')
     .then((response) => {
-      this.setState({ games: response.data });
+      let games = response.data.map((game) => {
+        game.completed = this.props.user.gameHistory.includes(game.name);
+        return game;
+      });
+      this.setState({ games });
     })
     .catch((err) => {
       throw(err);

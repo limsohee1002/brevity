@@ -60,7 +60,7 @@ class LeaderBoard extends React.Component {
     return(
       <div className="myRank">
         <div className="profile-pic">
-          <img src={this.props.user.profilePicture}/>
+          <img className="circle" src={this.props.user.profilePicture}/>
           <div>
             <h3>{this.props.user.username}</h3>
             <h4>Rank: {this.state.allUsers.length > 0 ? this.getUserRank() : 'loading'}</h4>

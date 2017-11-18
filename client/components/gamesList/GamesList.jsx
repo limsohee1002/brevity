@@ -11,7 +11,12 @@ const GamesList = (props) => (
       <h5 className="gametitle">Games</h5>
       <div className="game-list">
         {props.gamesList.map((game, i) => 
-          <Link key={i + 1} to={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)}><div key={i} className="z-depth-1 game_title" onClick={props.onGameSelect.bind(null, i)}>{game.name}</div></Link>
+          <Link className="z-depth-1" key={i + 1} to={'/gameList/' + (game.name ? game.name.replace(/ /g,'') : game.name)}>
+            <div key={i} className="game_title" onClick={props.onGameSelect.bind(null, i)}>
+              {game.name}
+              {game.completed ? <i className="material-icons">check</i> : null}
+            </div>
+          </Link>
         )}
       </div>
     </div>

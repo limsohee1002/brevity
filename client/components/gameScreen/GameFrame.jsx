@@ -81,7 +81,7 @@ class GameFrame extends React.Component {
     })
     .then((response) => {
       let callback = () => this.props.setUser(response.data);
-      response === false ? this.setState(newState) : this.setState(newState, () => callback);
+      response === false ? this.setState(newState) : this.setState(newState, callback);
     })
     .catch((error) => {
       console.log(error);

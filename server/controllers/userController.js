@@ -82,11 +82,11 @@ exports.authUser = (req, res) => {
             var user = match[0];
             util.createSession(req, res, user);
           } else {
-            res.send({ error : 'That password and username did not match. Please try again.' });
+            res.status(403).send('That password and username did not match. Please try again.');
           }
         });
       } else {
-        res.status(400).send('That username does not exist. Sign up above.'); 
+        res.status(400).send('That username does not exist. Sign up below.'); 
       }
     }
   });

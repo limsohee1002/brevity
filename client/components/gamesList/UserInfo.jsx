@@ -9,8 +9,9 @@ import { Link, IndexRoute, BrowserRouter as Router } from 'react-router-dom';
 const UserInfo = props => (
   <div className="row z-depth-2" id="userinfo">
     <h5 className="col s3">
-      User: 
+      User:
       <Link
+        className="username"
         to={{
           pathname: `/profile/${props.username}`,
           state: { username: props.username }
