@@ -19,7 +19,6 @@ class GameFrame extends React.Component {
       isComplete: false
     };
     this.algorithmID = this.props.gameObject.algorithmID;
-    console.log(this.props.gameObject.length);
     this.getAlgorithm = this.getAlgorithm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
