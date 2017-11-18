@@ -17,6 +17,7 @@ const Timer = (props) => (
       color="#FF0000"
       alpha={0.9}
       size={100}
+      paused={props.isComplete}
       onComplete={props.onTimerExpired} /> 
   </div>
 );

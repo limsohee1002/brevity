@@ -26,21 +26,6 @@ class CodeEntryForm extends React.Component {
     this.props.handleChange(editor.getValue());
   }
 
-  // sendPoints() {
-  //   axios.post('/users/points', {
-  //     value: this.props.value, 
-  //     timerExpired: this.props.timerExpired,
-  //     result: this.props.result
-  //   })
-  //   .then((response) => {
-  //     this.setState({result: response.data,
-  //     timerExpired: timerExpired})
-  //   }) 
-  //   .catch((error) => {
-  //     console.error(error)
-  //   })
-  // }
-  // Handle button submit
   onSubmit(cb) {
     this.props.handleSubmit(this.props.gameName);
   }
@@ -64,7 +49,7 @@ class CodeEntryForm extends React.Component {
             enableSnippets={true}
             tabSize={2} />
           </div>
-        <button className="btn waves-effect waves-light" disabled={this.props.timerExpired} 
+        <button className="btn waves-effect waves-light" disabled={this.props.timerExpired || this.props.isComplete} 
           onClick={this.onSubmit}>Submit</button>
       </div> : <div className="loading"> Loading... </div>
   }
