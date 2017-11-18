@@ -49,4 +49,6 @@ module.exports = (app) => {
 
   //routes to perform tests of evaluated code
   app.post('/test', test.getSubmissionEvaluation);
+
+  app.put('/gamehistory', user.addGameHistory )
 };

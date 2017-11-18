@@ -132,4 +132,17 @@ exports.deleteUser = (req, res) => {
   });
 };
 
-
+exports.addGameHistory = (req, res) => {
+  console.log('sadfasdf',req.body)
+  // req.body =  { params: { username: 'sohee', gamename: 'Bubble Sort' } }
+  Users.findOne({username: req.body.params.username}, function(err, user) {
+    if (err) return handleError(err);
+    let add = user.gameHistory
+    add.push(req.body.params.gamename);
+    user.gameHistory = add;
+    user.save(function(err, updatedUsers) {
+      if (err) return handleError(err);
+      res.send(updatedUsers);
+    })
+  })
+};
