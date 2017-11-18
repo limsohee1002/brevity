@@ -27,7 +27,7 @@ class CodeEntryForm extends React.Component {
 
   // Handle button submit
   onSubmit(cb) {
-    this.props.handleSubmit();
+    this.props.handleSubmit(this.props.gameName);
   }
 
   render() {
