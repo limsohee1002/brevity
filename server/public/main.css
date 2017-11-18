@@ -124,6 +124,23 @@ nav .brand-logo {
   align-content: center;
   justify-content: center;
 }
+.profile_public {
+  padding: 64px;
+  display: flex;
+  flex-flow: row;
+  width: 100vw;
+}
+.profile_public img {
+  object-fit: cover;
+  height: 200px;
+  width: 200px;
+}
+.profile_public > div {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 32px;
+  flex-flow: column;
+}
 /* .row .col {
   float: none;
 }
