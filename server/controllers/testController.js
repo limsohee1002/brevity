@@ -63,10 +63,6 @@ exports.getSubmissionEvaluation = (req, res) => {
 
       // SAM 11/14/2017 - I initially wrote this but Mocha throws an error if the tests fail.
       // Good for us to review
-
-      if (!data) {
-        return res.sendStatus(400);
-      }
       
       // if (error) { return res.status(400).send(error); }
 
@@ -74,9 +70,9 @@ exports.getSubmissionEvaluation = (req, res) => {
 
       // RegExp to find the number of tests that are passing and failing;
       console.log('data', data);
-      var passingIdx = /passing/.exec(data).index;
-      var passing = data[passingIdx - 2];
-      passing = Number(data[passingIdx - 3]) ? data[passingIdx - 3] + passing : passing;
+      var regPassing = /passing/.exec(data) || false;
+      var passing = regPassing ? data[regPassing.index - 2] : '0';
+      passing = Number(data[regPassing.index - 3]) ? data[regPassing.index - 3] + passing : passing;
 
       var regFailing = /failing/.exec(data) || false;
       var failing = regFailing ? data[regFailing.index - 2] : '0';
@@ -86,7 +82,7 @@ exports.getSubmissionEvaluation = (req, res) => {
       var returnObj = {
         passing: passing, 
         failing: failing,
-        testResults: data // This is a printout from mocha with the details of the passing and failing tests
+        testResults: data || error // This is a printout from mocha with the details of the passing and failing tests
       }; 
 
       res.send(returnObj);

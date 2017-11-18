@@ -1,31 +1,9 @@
-// the following commented out components need to be uncommented once their components are rendered. 
-    // When you have finished a component: 
-      // uncomment the import
-      // uncomment the component on the render screen. 
-
 import React from 'react';
 import axios from 'axios';
 import Prompt from './Prompt.jsx'; 
 import Timer from './Timer.jsx'; 
 import CodeEntryForm from './CodeEntryForm.jsx';
 import Result from './Result.jsx';
-
-// import Tests from './Tests' // this needs a file
-// import Xonsole from './Xonsole' // because 'Console' isn't a reserved word but it should be.
-// import RunXonsoleButton from './RunXonsoleButton' // this needs a file
-
-// Recieves props from: 
-  // none
-// Gives props to: 
-  // CodeEntryForm, Submit Button, Timer, Prompt
-
-// This receives the following props from the 'GamesList': 
-      // game object with: 
-        // algorithm: _id
-        // participants
-        // leaderboard
-        // status
-        // playerScores
 
 class GameFrame extends React.Component {
   constructor(props) {
@@ -35,24 +13,19 @@ class GameFrame extends React.Component {
       prompt: null, 
       seedCode: null, 
       testSuite: null,
-      value: '', // User's code now managed by this component's state
+      value: '',
       timerExpired: false,
       result: {},
       isComplete: false
     };
-  
     this.algorithmID = this.props.gameObject.algorithmID;
     this.getAlgorithm = this.getAlgorithm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onTimerExpired = this.onTimerExpired.bind(this);
-    // this.toggleSubmitStatus = this.toggleSubmitStatus.bind(this);
-    // this.toggleRunXonsoleStatus = this.toggleRunXonsoleStatus.bind(this);
-    // this.changeTimer = this.changeTimer.bind(this);
   }
 
   handleChange(value) {
-    // console.log('value:', value)
     this.state.value = value;
   }
 
@@ -76,7 +49,7 @@ class GameFrame extends React.Component {
 
   // Managing user code state here means we can submit at any time, including when timer expires
   // timerExpired is an optional argument used for when the timer actually expires
-  handleSubmit(gamename, timerExpired = false) {
+  handleSubmit(timerExpired = false) {
     let newState = { timerExpired };
     axios.post('/test', {
       value: this.state.value,
@@ -86,31 +59,29 @@ class GameFrame extends React.Component {
     .then((response) => {
       newState.result = response.data;
       if (!timerExpired && Number(newState.result.failing) !== 0) {
-        return this.setState(newState);
+        this.setState(newState);
+        return false;
+      } else {
+        newState.isComplete = true;
+        return axios.post('/users/points', {
+          result: newState.result,
+          value: this.state.value,
+          timerExpired: timerExpired,
+          user: this.props.user
+        });
       }
-      newState.isComplete = true;
-      // this.setState({
-      //   result: response.data,
-      //   timerExpired: timerExpired
-      // });
-    //   if (response.data.failing === "0") {
-    //     axios.put('/gamehistory', {params: {username: this.props.user.username, gamename: gamename}})
-    //     console.log('if fail = 0 send request')
-      //   }
-      // })
-      // .then((response) => {
-      //   this.props.setUser(response.data);
-      //   this.setState(newState)
-      axios.post('/users/points', {
-        result: newState.result,
-        value: this.state.value,
-        timerExpired: timerExpired,
-        user: this.props.user
-      })
-      .then((response) => {
-        let user = response.data;
+    })
+    .then((response) => {     
+      if (!response) { return response; }
+      let user = response.data;
+      if (Number(newState.result.failing) !== 0) {
         this.setState(newState, () => this.props.setUser(user));
-      })
+      } else {
+        return axios.put('/gamehistory', { params: { username: this.props.user.username, gamename: this.props.gameObject.name } });
+      }
+    })
+    .then((response) => {
+      response ? this.setState(newstate, () => this.props.setUser(response.data)) : this.setState(newState);
     })
     .catch((error) => {
       this.setState({
@@ -145,9 +116,8 @@ class GameFrame extends React.Component {
             promptDetails={this.state.prompt} 
             name={this.props.gameObject.name} />
           <br/>
-          <CodeEntryForm 
-            gameName={this.props.gameObject.name}
-            seedCode = {this.state.seedCode} 
+          <CodeEntryForm
+            seedCode={this.state.seedCode} 
             testSuite={this.state.testSuite}
             algo={this.props.gameObject.algorithmID}
             value={this.state.value}
@@ -157,12 +127,6 @@ class GameFrame extends React.Component {
             result={this.state.result}
             isComplete={this.state.isComplete} /> 
           <Result result={this.state.result} />
-        </div> 
-        <div className="inline-block-div"> 
-          {/* We aren't using any of these, but you should be able to. 
-          <Xonsole toggleRunXonsoleStatus={this.toggleRunXonsoleStatus} isXonsoleRun={this.state.isXonsoleRun}/>
-          <RunXonsoleButton toggleRunXonsoleStatus={this.toggleRunXonsoleStatus}/>  
-        */}	
         </div>
       </div> 
     </div>

@@ -10,7 +10,7 @@ const RankBoard = (props) => (
       <h5 className="points">total points</h5>
       <h5 className="history">game history</h5>
     </div>
-    {props.allUsers.map((data, i) => 
+    {props.filteredUsers.map((data, i) => 
       <div key={data._id} className="innerwrapper">
         <div key={data._id + 'name'} className="name">
           <Link to={`/public/${data.username}`}>{data.username}</Link>

@@ -7,15 +7,22 @@ class LeaderBoard extends React.Component {
     super(props);
     this.state = {
       allUsers: [],
+      filteredUsers: [],
       defaultPhoto: 'https://harvardgazette.files.wordpress.com/2017/03/mark-zuckerberg-headshot-11.jpg',
+      currentSearch: '',
       userRank: null
     };
+    this.onChange = this.onChange.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
   };
 
   componentDidMount() {
     axios.get('/users').then((res) => {
       let users = res.data.sort((a, b) => b.totalPoints - a.totalPoints)
-      this.setState({ allUsers: users });
+      this.setState({ 
+        allUsers: users,
+        filteredUsers: users
+      });
     }).catch((error) => {
       console.log('user fetch error', error)
     });
@@ -24,9 +31,26 @@ class LeaderBoard extends React.Component {
   getUserRank() {
     for (var i = 0; i < this.state.allUsers.length; i++) {
       if (this.state.allUsers[i].username === this.props.user.username) {
-        return i + 1;
+        return i +1;
       }
     }
+  }
+
+  onChange(e) {
+    let newSearch = e.target.value;
+    let newUsers = this.state.filteredUsers.filter((a) => a.username.includes(newSearch));
+    console.log(newSearch, newUsers);
+    this.setState({
+      filteredUsers: newUsers,
+      currentSearch: newSearch
+    });
+  }
+
+  clearSearch() {
+    this.setState({
+      currentSearch: '',
+      filteredUsers: this.state.allUsers
+    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -43,11 +67,14 @@ class LeaderBoard extends React.Component {
             <h4>your rank is: {this.state.allUsers.length > 0 ? this.getUserRank() : 'loading'}</h4>
           </div>
         </div>
-        <RankBoard allUsers={this.state.allUsers}/>
+        <div className="input-field">
+          <input className="search_bar" id="search" type="search" required value={this.state.currentSearch} onChange={this.onChange}/>
+          <label className="label-icon" id="search_icon"><i className="material-icons">search</i></label>
+          <i className="material-icons" id="search_close" onClick={this.clearSearch}>close</i>
+        </div>
+        <RankBoard filteredUsers={this.state.filteredUsers}/>
       </div>
     );
   }
 }
 export default LeaderBoard; 
-
-

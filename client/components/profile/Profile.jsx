@@ -7,14 +7,12 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       user: null,
-      username: '',
-      aboutMe: '',
+      username: this.props.user.username,
+      aboutMe: this.props.user.aboutMe,
       profilePicture: ''
-    }
-
+    };
     this.updateProfile = this.updateProfile.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-
   }
 
   handleInputChange(event) {
@@ -46,7 +44,7 @@ class Profile extends React.Component {
             <input
               name="username"
               type="text"
-              value={this.props.user.username}
+              value={this.state.username}
               onChange={this.handleInputChange}
             />
 
@@ -54,14 +52,14 @@ class Profile extends React.Component {
             <input
               name="aboutMe"
               type="text"
-              value={this.props.user.aboutMe}
+              value={this.state.aboutMe}
               onChange={this.handleInputChange}
             />
             <label>Upload Photo</label>
             <input
               name="profilePicture"
               type="text"
-              value={this.props.profilePicture}
+              value={this.state.profilePicture}
               onChange={this.handleInputChange}
             />
           </form>

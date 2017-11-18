@@ -26,8 +26,8 @@ class CodeEntryForm extends React.Component {
     this.props.handleChange(editor.getValue());
   }
 
-  onSubmit(cb) {
-    this.props.handleSubmit(this.props.gameName);
+  onSubmit(e) {
+    this.props.handleSubmit();
   }
   
   render() {
