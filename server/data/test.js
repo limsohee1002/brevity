@@ -1,44 +1,89 @@
-var bubbleSort = require('./submission.js')
+var deepEquals = require('./submission.js')
 var chai = require('chai'); 
 var mocha = require('mocha');
 var should = chai.should();
-var assert = chai.assert;
 
-//
-// sort this array
-//
-describe('bubbleSort', function(){
-  
-  it(': sort it', function() {
-    Array.prototype.sort = null;
-    var input = [20, -10, -10, 2, 4, 299];
-    var expected = [-10, -10, 2, 4, 20, 299].toString();
-    var actual = bubbleSort(input).toString();
+describe('deepEquals()', function(){
+  it('should return true for two empty objects', function(){
+    var expected = true;
+    var actual = deepEquals({}, {});
     actual.should.equal(expected);
   });
-      
-//
-// and this array
-//
-
-  it(': sort it', function() {
-    Array.prototype.sort = null;
-    var input = [2, 2, 2, 2, 2, 22, 2, 2, 222, 2222, 22, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 22];
-    var expected = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 22, 22, 22, 222, 2222].toString();
-    var actual = bubbleSort(input).toString();
+  it('distinguishes between objects and arrays', function() {
+    var a = { foo: [2, { bar: {}}]};
+    var b = { foo: [2, { bar: []}]};
+    var expected = false;
+    var actual = deepEquals(a, b);
     actual.should.equal(expected);
   });
-
-
-//
-// also this array, thank you
-//    
-  it(': sort it', function() {
-    Array.prototype.sort = null;
-    var input = [18, 30, 25, 28, 24, 19, 31, 20, 35, 24, 36, 26, 30, 29, 40, 36];
-    var expected = [18, 19, 20, 24, 24, 25, 26, 28, 29, 30, 30, 31, 35, 36, 36, 40].toString();
-    var actual = bubbleSort(input).toString();
-    actual.should.equal(expected);});
-
-
+  it('should use deep equality', function(){
+    var a = { foo: 1 };
+    var b = { foo: '1' };
+    var expected = false;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return true for two objects with the same keys and values', function(){
+    var a = { foo: 'bar' };
+    var b = { foo: 'bar' };
+    var expected = true;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return false for two objects with the same keys and but different values', function(){
+    var a = { foo: 'bar' };
+    var b = { foo: 'pow' };
+    var expected = false;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return false for two objects with different number of keys', function(){
+    var a = { foo: 'bar' };
+    var b = { foo: 'bar', biz: 'baz' };
+    var expected = false;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return false for two objects with different number of keys', function(){
+    var a = { foo: 'bar', biz: 'baz' };
+    var b = { foo:'bar' };
+    var expected = false;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return true for similar nested object properties', function(){
+    var a = { foo: 1, b: { c: 3 } };
+    var b = { foo: 1, b: { c: 3 } };
+    var expected = true;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return false for dissimilar nested object properties', function(){
+    var a = { foo: 1, b: { c: 3 } };
+    var b = { foo: 1, b: { c:'potato' } };
+    var expected = false;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return false for dissimilar nested object properties', function(){
+    var a = { foo: 1, b: { c: 'potato'} };
+    var b = { foo: 1, b: { c: 3 } };
+    var expected = false;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return true for similar excessively nested object properties', function(){
+    var a = { foo: 1, b: { c: { d: { e: 'potato' } } } };
+    var b = { foo: 1, b: { c: { d: { e: 'potato' } } } };
+    var expected = true;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
+  it('should return true for similar excessively nested object properties', function(){
+    var a = { b: { c: { d: { e: 'potato' } } }, foo: 1 };
+    var b = { foo: 1, b: { c: { d: { e: 'potato' } } } };
+    var expected = true;
+    var actual = deepEquals(a, b);
+    actual.should.equal(expected);
+  });
 });

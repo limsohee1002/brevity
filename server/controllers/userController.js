@@ -111,15 +111,14 @@ exports.updateUserData = (req, res) => {
   });
 };
 
-exports.updatePoints = (req, res) => { //add points algo calculations here 
-  var points = Math.floor(util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired)) || 0;
+exports.updatePoints = (req, res) => { 
+  var points = Math.floor(util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired, req.body.length, req.body.value.length)) || 0;
   Users.findOneAndUpdate({ username: req.body.user.username }, { $inc: { totalPoints: points } }, { new: true }, (error, user) => {
     if (error) {res.status(400).send(error)};
+    
     res.send(user)
   });
-  console.log('req.body:', req.body)
-  console.log('here', points)
-  console.log('passing', req.body.result.failing)
+  
 }
 
 // delete '/users/:username' //this has not been tested. 
