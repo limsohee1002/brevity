@@ -131,8 +131,8 @@ exports.deleteUser = (req, res) => {
 };
 
 exports.addGameHistory = (req, res) => {
-  Users.findOneAndUpdate({ username: req.body.params.username }, { $push: { gameHistory: req.body.params.gamename } }, { new: true }, (error, user) => {
-    if (error) res.status(400).send(error);
+  Users.findOneAndUpdate({ username: req.body.params.username }, { $addToSet: { gameHistory: req.body.params.gamename } }, { new: true }, (error, user) => {
+    if (error) { res.status(400).send(error); }
     res.send(user);
   });
 };
