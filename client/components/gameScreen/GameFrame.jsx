@@ -72,7 +72,7 @@ class GameFrame extends React.Component {
       }
     })
     .then((response) => {     
-      if (!response) { return response; }
+      if (response === false) { return response; }
       let user = response.data;
       if (Number(newState.result.failing) !== 0) {
         this.setState(newState, () => this.props.setUser(user));
@@ -81,9 +81,11 @@ class GameFrame extends React.Component {
       }
     })
     .then((response) => {
-      response ? this.setState(newstate, () => this.props.setUser(response.data)) : this.setState(newState);
+      let callback = () => this.props.setUser(response.data);
+      response === false ? this.setState(newState) : this.setState(newState, () => callback);
     })
     .catch((error) => {
+      console.log(error);
       this.setState({
         result: { testResults: 'Unable to parse code' },
         timerExpired: timerExpired
