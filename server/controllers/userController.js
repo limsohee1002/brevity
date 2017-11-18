@@ -79,8 +79,7 @@ exports.authUser = (req, res) => {
 
         bcrypt.compare(inputPassword, hashedPassword, (error, isCorrectPassword) => {
           if (isCorrectPassword) {
-            var user = new Users(req.body);
-            // res.send(currentUser);
+            var user = match[0];
             util.createSession(req, res, user);
           } else {
             res.send({ error : 'That password and username did not match. Please try again.' });
@@ -96,7 +95,7 @@ exports.authUser = (req, res) => {
 // SAM 11/14/2017 - We need to flesh the below out for leaderboard
 // Get '/users/:username' // This has not been tested. 
 exports.getSpecificUserData = (req, res) => {
-  Users.findById(req.params.username, (error, user) => {
+  Users.findOne({ username: req.params.username }, (error, user) => {
     if (error) { return res.status(404).send(error); }
     res.send(user);
   });
@@ -113,11 +112,11 @@ exports.updateUserData = (req, res) => {
 };
 
 exports.updatePoints = (req, res) => { //add points algo calculations here 
-  var points = util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired);
-  Users.findOneAndUpdate({username: req.body.user.username}, {$set: {totalPoints: points}}, {new: true}, (error, user) => {
+  var points = Math.floor(util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired));
+  Users.findOneAndUpdate({username: req.body.user.username}, {$inc: {totalPoints: points}}, {new: true}, (error, user) => {
     if (error) {res.status(400).send(error)};
     res.send(user)
-  })
+  });
   console.log('req.body:', req.body)
   console.log('here', util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired))
   console.log('passing', req.body.result.failing)
@@ -132,4 +131,17 @@ exports.deleteUser = (req, res) => {
   });
 };
 
-
+exports.addGameHistory = (req, res) => {
+  console.log('sadfasdf',req.body)
+  // req.body =  { params: { username: 'sohee', gamename: 'Bubble Sort' } }
+  Users.findOne({username: req.body.params.username}, function(err, user) {
+    if (err) return handleError(err);
+    let add = user.gameHistory
+    add.push(req.body.params.gamename);
+    user.gameHistory = add;
+    user.save(function(err, updatedUsers) {
+      if (err) return handleError(err);
+      res.send(updatedUsers);
+    })
+  })
+};

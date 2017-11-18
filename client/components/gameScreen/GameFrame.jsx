@@ -38,10 +38,7 @@ class GameFrame extends React.Component {
       value: '', // User's code now managed by this component's state
       timerExpired: false,
       result: {},
-      // The below three are not currently being used. 
-      isSubmitted: false, 
-      isXonsoleRun: false, 
-      isTimerRunning: false, 
+      isComplete: false
     };
   
     this.algorithmID = this.props.gameObject.algorithmID;
@@ -79,7 +76,7 @@ class GameFrame extends React.Component {
 
   // Managing user code state here means we can submit at any time, including when timer expires
   // timerExpired is an optional argument used for when the timer actually expires
-  handleSubmit(timerExpired = false) {
+  handleSubmit(gamename, timerExpired = false) {
     let newState = { timerExpired };
     axios.post('/test', {
       value: this.state.value,
@@ -88,20 +85,32 @@ class GameFrame extends React.Component {
     })
     .then((response) => {
       newState.result = response.data;
-      return axios.post('/users/points', {
+      if (!timerExpired && Number(newState.result.failing) !== 0) {
+        return this.setState(newState);
+      }
+      newState.isComplete = true;
+      // this.setState({
+      //   result: response.data,
+      //   timerExpired: timerExpired
+      // });
+    //   if (response.data.failing === "0") {
+    //     axios.put('/gamehistory', {params: {username: this.props.user.username, gamename: gamename}})
+    //     console.log('if fail = 0 send request')
+      //   }
+      // })
+      // .then((response) => {
+      //   this.props.setUser(response.data);
+      //   this.setState(newState)
+      axios.post('/users/points', {
         result: newState.result,
         value: this.state.value,
         timerExpired: timerExpired,
         user: this.props.user
       })
-      // this.setState({
-      //   result: response.data,
-      //   timerExpired: timerExpired
-      // });
-    })
-    .then((response) => {
-      this.props.setUser(response.data);
-      this.setState(newState)
+      .then((response) => {
+        let user = response.data;
+        this.setState(newState, () => this.props.setUser(user));
+      })
     })
     .catch((error) => {
       this.setState({
@@ -110,15 +119,17 @@ class GameFrame extends React.Component {
       });
     });
   }
-  
-  // SAM 11/16/2017, Do we actually want to do this?
-  // toggleRunXonsoleStatus() {
-  //   this.setState({isXonsoleRun : !this.state.isXonsoleRun});
-  // }
 
   // Initial fetch
   componentDidMount() {
     this.getAlgorithm(this.algorithmID);
+  }
+
+  // Check if user is changing
+  componentWillUpdate(nextProps, nextState) {
+    if (nextProps.user.points === this.props.user.points) {
+      nextState = this.state;
+    }
   }
 
   render() {
@@ -128,13 +139,14 @@ class GameFrame extends React.Component {
       <div className="gameview">
         <div className="col s9 container">
           <div className="col s3 container">
-            {<Timer onTimerExpired={this.onTimerExpired} />}
+            {<Timer isComplete={this.state.isComplete} onTimerExpired={this.onTimerExpired} />}
           </div>
           <Prompt 
             promptDetails={this.state.prompt} 
             name={this.props.gameObject.name} />
           <br/>
           <CodeEntryForm 
+            gameName={this.props.gameObject.name}
             seedCode = {this.state.seedCode} 
             testSuite={this.state.testSuite}
             algo={this.props.gameObject.algorithmID}
@@ -142,7 +154,8 @@ class GameFrame extends React.Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             timerExpired={this.state.timerExpired} 
-            result={this.state.result}/> 
+            result={this.state.result}
+            isComplete={this.state.isComplete} /> 
           <Result result={this.state.result} />
         </div> 
         <div className="inline-block-div"> 

@@ -24,6 +24,7 @@ module.exports = (app) => {
   // Routes to handle getting and updating specific user. 
   app.post('/users/points', user.updatePoints);
   app.get('/users/:username', user.getSpecificUserData);
+  app.get('/profile/:username', user.getSpecificUserData);
   app.put('/users/:username', user.updateUserData);
   app.delete('/users/:username', user.deleteUser);
 
@@ -49,4 +50,6 @@ module.exports = (app) => {
 
   //routes to perform tests of evaluated code
   app.post('/test', test.getSubmissionEvaluation);
+
+  app.put('/gamehistory', user.addGameHistory )
 };

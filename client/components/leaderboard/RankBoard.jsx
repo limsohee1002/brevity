@@ -1,4 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { Route, Redirect } from 'react-router';
+import { BrowserRouter, Link, Switch } from 'react-router-dom';
 
 const RankBoard = (props) => (
   <div className="outerwrapper">
@@ -8,14 +11,14 @@ const RankBoard = (props) => (
       <h5 className="history">game history</h5>
     </div>
     {props.allUsers.map((data, i) => 
-      <div key={data.id} className="innerwrapper">
-        <div key={data.id + 'name'} className="name">
-          {data.username}
+      <div key={data._id} className="innerwrapper">
+        <div key={data._id + 'name'} className="name">
+          <Link to={`/public/${data.username}`}>{data.username}</Link>
         </div>
-        <div key={data.id + 'points'} className="points">
+        <div key={data._id + 'points'} className="points">
           {data.totalPoints}
         </div>
-        <div key={data.id + 'history'} className="history">
+        <div key={data._id + 'history'} className="history">
             {data.gameHistory}
         </div>
       </div>)}

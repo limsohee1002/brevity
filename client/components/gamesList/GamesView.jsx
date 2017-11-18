@@ -32,7 +32,6 @@ class GamesView extends React.Component {
   componentDidMount() {
     axios.get('/games')
     .then((response) => {
-      console.log(response.data);
       this.setState({ games: response.data });
     })
     .catch((err) => {

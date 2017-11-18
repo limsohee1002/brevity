@@ -8,6 +8,7 @@ import { BrowserRouter, Link, Switch } from 'react-router-dom'
 import LeaderBoard from './components/leaderboard/Leaderboard.jsx';
 import Profile from './components/profile/Profile.jsx';
 import NavBar from './components/navbar/NavBar.jsx';
+import PublicProfile from './components/profile/PublicProfile.jsx';
 //all components will be attached to this Page component.
 //Page component will be rendered to the html file
 class Page extends React.Component {
@@ -21,6 +22,7 @@ class Page extends React.Component {
   }
 
   setUser(user) {
+    console.log(user);
     this.setState({ user });
   }
 
@@ -50,8 +52,9 @@ class Page extends React.Component {
             <Switch>
               <Redirect exact from='/' to='/gameList'/>
               <Route path='/gameList' render={() => <GamesView setUser={this.setUser} user={this.state.user} />} />
-              <Route path='/leaderboard' render={() => <LeaderBoard user={this.state.user}/>}/>
-              <Route path='/profile' render={() => <Profile setUser={this.setUser} user={this.state.user}/>}/>
+              <Route path='/leaderboard' render={() => <LeaderBoard user={this.state.user} />} />
+              <Route path='/profile' render={() => <Profile setUser={this.setUser} user={this.state.user} />} />
+              <Route path='/public' component={PublicProfile} />
             </Switch>
           </div>)}
         </div>

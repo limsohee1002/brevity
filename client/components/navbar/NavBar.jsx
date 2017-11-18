@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Redirect } from 'react-router';
-import { BrowserRouter, Link, Switch } from 'react-router-dom'
+import { BrowserRouter, Link, Switch } from 'react-router-dom';
 
 const NavBar = (props) => (
   <nav className="nav">
