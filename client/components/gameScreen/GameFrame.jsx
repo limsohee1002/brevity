@@ -69,7 +69,8 @@ class GameFrame extends React.Component {
           result: newState.result,
           value: this.state.value,
           timerExpired: timerExpired,
-          user: this.props.user
+          user: this.props.user,
+          length: this.props.gameObject.lenth
         });
       }
     })
