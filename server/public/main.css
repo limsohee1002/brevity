@@ -162,6 +162,17 @@ nav .brand-logo {
 .btn {
   margin-top: 8px;
 }
+.auth_error {
+  position: fixed;
+  left: calc(50% - 128px);
+  top: 200px;
+}
+@media only screen and (max-width: 992px) {
+  .auth_error {
+    left: calc(50% - 144px);
+    top: 100px;
+  }
+}
 
 /* COLORS */
 body {
@@ -177,13 +188,3 @@ body {
 #userinfo {
   background-color: rgb(48, 69, 80);
 }
-/* .row .col {
-  float: none;
-}
-
-#userinfo {
-  float: left;
-} */
-/* #gameview {
-  float: none;
-} */

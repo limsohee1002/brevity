@@ -49,6 +49,7 @@ class GameFrame extends React.Component {
 
   // Managing user code state here means we can submit at any time, including when timer expires
   // timerExpired is an optional argument used for when the timer actually expires
+  // SJK 11/18/2017 this logic is poorly flowing, if time, fix this
   handleSubmit(timerExpired = false) {
     let newState = { timerExpired };
     axios.post('/test', {
@@ -61,9 +62,10 @@ class GameFrame extends React.Component {
       if (!timerExpired && Number(newState.result.failing) !== 0) {
         this.setState(newState);
         return false;
-      } else {
+      } else  {
         newState.isComplete = true;
-        return axios.post('/users/points', {
+        return this.props.user.gameHistory.includes(this.props.gameObject.name) ? false :
+        axios.post('/users/points', {
           result: newState.result,
           value: this.state.value,
           timerExpired: timerExpired,
@@ -74,11 +76,7 @@ class GameFrame extends React.Component {
     .then((response) => {     
       if (response === false) { return response; }
       let user = response.data;
-      if (Number(newState.result.failing) !== 0) {
-        this.setState(newState, () => this.props.setUser(user));
-      } else {
-        return axios.put('/gamehistory', { params: { username: this.props.user.username, gamename: this.props.gameObject.name } });
-      }
+      return axios.put('/gamehistory', { params: { username: this.props.user.username, gamename: this.props.gameObject.name } });
     })
     .then((response) => {
       let callback = () => this.props.setUser(response.data);

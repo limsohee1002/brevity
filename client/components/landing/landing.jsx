@@ -90,6 +90,7 @@ class Landing extends React.Component {
   render() {
     return (
       <div>
+        <span className="red-text auth_error">{this.state.error}</span>
         <form className="login">
           <i className="material-icons prefix">account_circle</i>
           <input type="text" value={this.state.username} onChange={this.handleUsername} placeholder="Username"/>
@@ -106,7 +107,6 @@ class Landing extends React.Component {
             </button>
           </div>
         </form>
-        <span className="red-text">{this.state.error}</span>
       </div>
     );
   }
