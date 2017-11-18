@@ -140,13 +140,17 @@ nav .brand-logo {
   justify-content: flex-end;
   padding-left: 32px;
   padding-top: 4px;
-  flex-flow: column;
+  flex-flow: column wrap;
 }
-.input-field {
-  margin-top: 1.2rem;
-}
-#search {
-  padding-left: 32px;
+@media only screen and (max-width: 992px) {
+  .profile_public {
+    flex-flow: column;
+    align-items: center;
+  }
+  .profile_public > div {
+    padding-left: 0px;
+    align-items: center;
+  }
 }
 #search_icon {
   left: 0;
@@ -154,6 +158,24 @@ nav .brand-logo {
 }
 #search_close {
   margin-top: 8px;
+}
+.btn {
+  margin-top: 8px;
+}
+
+/* COLORS */
+body {
+  background-color: rgb(48, 51, 49);
+  color: #fff;
+}
+.game_title {
+  background-color: rgb(68, 72, 69);
+}
+.nav {
+  background-color: rgb(32, 93, 186);
+}
+#userinfo {
+  background-color: rgb(48, 69, 80);
 }
 /* .row .col {
   float: none;

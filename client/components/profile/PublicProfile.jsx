@@ -7,18 +7,20 @@ class PublicProfile extends React.Component {
     this.state = {
       username: 'username',
       profilePicture: '',
-      aboutMe: ''
+      aboutMe: '',
+      gameHistory: []
     };
   }
 
   componentDidMount() {
     let username = this.props.location.pathname.split('/').pop();
-    axios.get(`/profile/${username}`)
+    axios.get(`/api/profile/${username}`)
     .then((response) => {
       this.setState({
         username: response.data.username,
         profilePicture: response.data.profilePicture,
-        aboutMe: response.data.aboutMe
+        aboutMe: response.data.aboutMe,
+        gameHistory: response.data.gameHistory
       });
     })
     .catch((error) => {
@@ -33,8 +35,10 @@ class PublicProfile extends React.Component {
         <img className="circle" src={this.state.profilePicture} alt={this.state.profilePicture}></img>
         <div>
           <h3>{this.state.username}</h3>
-          <h4>{this.state.aboutMe}</h4>
+          <h6>{this.state.aboutMe}</h6>
         </div>
+        {this.state.gameHistory.map((game, i) => 
+          <div key={i}>{game}</div>)}
       </div> :
       <div className="no_user">
         User not found?

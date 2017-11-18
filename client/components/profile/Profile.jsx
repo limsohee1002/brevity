@@ -27,8 +27,8 @@ class Profile extends React.Component {
 			profilePicture: this.state.profilePicture
 		};
 		axios.put(`/users/${this.props.user.username}`, updatedProfile)
-      .then(res => {
-        this.props.setUser(res.data)
+      .then((res) => {
+        this.props.setUser(res.data);
 		});
 	}
 

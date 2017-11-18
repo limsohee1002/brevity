@@ -9,7 +9,11 @@
   grid-row: auto;
   margin: 50px 0 10px 0;
   padding: 15px;
-  border: solid pink 1px;
+  border: solid rgb(42, 122, 246) 1px;
+}
+
+.wrapper > h6 {
+  text-align: center;
 }
 
 @media only screen and (max-width: 992px) {
@@ -25,16 +29,26 @@
   grid-row: auto;
   margin: 10px 0 10px 0;
   padding: 15px;
-  background-color: rgba(255, 192, 203, 0.5);
+  background-color: rgba(94, 94, 140, 0.5);
+}
+.innerwrapper:hover {
+  background-color: rgb(56, 69, 89);
 }
 
-.innerwrapper:hover {
-  background-color: rgba(255, 192, 203, 1);
-}
-.profilePicture {
+.profile_picture {
   grid-column: 1;
 }
-.name {
+.profile_picture img {
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+}
+.innerwrapper > div {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.name {  
   grid-column: 2;
 }
 
