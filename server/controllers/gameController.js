@@ -18,7 +18,8 @@ exports.getAllGames = (req, res) => {
     let result = data.reduce((a, b) => {
       a.push({
         algorithmID: b._id,
-        name: b.name
+        name: b.name,
+        length: b.length
       });
       return a;
     }, []);
