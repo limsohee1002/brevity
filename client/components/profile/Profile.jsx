@@ -6,102 +6,69 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
-      defaultPhoto: 'https://harvardgazette.files.wordpress.com/2017/03/mark-zuckerberg-headshot-11.jpg'
+      user: null,
+      username: '',
+      aboutMe: '',
+      profilePicture: ''
     }
 
-    // this.setUser = this.setUser.bind(this);
-  }
-  //
-  // handleSomeEvent(e) {
-  //   this.setState({
-  //     someState: e.target.value;
-  //   })
-  //
-  //
-  // setUser(user) {
-  //   this.setState({ user });
-  // }
+    this.updateProfile = this.updateProfile.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
 
-  componentDidMount() {
-    console.log('SHOULD BE USER HERE: ', this.props.user.username);
-    axios
-      .get(`/users/${this.props.user.username}`)
+  }
+
+  handleInputChange(event) {
+		this.setState({ [event.target.name]: event.target.value });
+	}
+
+	updateProfile(e) {
+		e.preventDefault();
+		var updatedProfile = {
+			name: this.state.username,
+			aboutMe: this.state.aboutMe,
+			profilePicture: this.state.profilePicture
+		};
+		axios.put(`/users/${this.props.user.username}`, updatedProfile)
       .then(res => {
-        console.log('res.data', res.data);
-        this.setState({
-          user: res.data
-        });
-      })
-      .catch(err => {
-        console.log('user fetch error');
-      });
-  }
-
-
-  	handleInputChange(event) {
-  		this.setState({ [event.target.name]: event.target.value });
-  	}
-
-  	submitProfile(e) {
-  		e.preventDefault();
-  		var newProfile = {
-  			name: this.state.name,
-  			origin: this.state.origin,
-  			previously: this.state.previously,
-  			interests: this.state.interests,
-  			experience: this.state.experience,
-  			fact1: this.state.fact1,
-  			fact2: this.state.fact2,
-  			fact3: this.state.fact3,
-  			photourl: this.state.photourl
-  		};
-  		axios.post('/profiles', newProfile).then(res => {
-  			alert('Created');
-  		});
-  	}
+        this.props.setUser(res.data)
+		});
+	}
 
   render(props) {
     return (
       <div className="profile_summary">
         <div className="profile-pic">
-          {this.props.user.profilePicture ? <img src={this.props.user.profilePicture}/> : <img src={this.state.defaultPhoto}/>}
+          <img src={this.props.user.profilePicture}/>
         </div>
-
         <div className="forms">
           <form>
-            <label>Name </label>
-            <br />
+            <label>Username</label>
             <input
-              name="name"
+              name="username"
               type="text"
               value={this.props.user.username}
               onChange={this.handleInputChange}
             />
-            <br />
 
-            <label>About Me </label>
-            <br />
+            <label>About Me</label>
             <input
-              name="origin"
+              name="aboutMe"
               type="text"
-              value={this.props.user.aboutme}
+              value={this.props.user.aboutMe}
               onChange={this.handleInputChange}
             />
-            <br />
             <label>Upload Photo</label>
-            <br />
             <input
-              name="photourl"
+              name="profilePicture"
               type="text"
-              value={this.state.photourl}
+              value={this.props.profilePicture}
               onChange={this.handleInputChange}
             />
           </form>
           <input
             type="submit"
             value="Update"
-            onClick={this.submitProfile}
+            onClick={this.updateProfile}
           />
         </div>
       </div>
