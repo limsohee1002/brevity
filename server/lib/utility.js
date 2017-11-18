@@ -28,14 +28,14 @@ var timePoints = (timeLeft) => {
 
 var lengthPoints = (answerLength, userCodeLength) => {
   var lengthPoints = 250;
-  if (userCodelength > answerLength) {
+  if (userCodeLength > answerLength) {
     lengthPoints = 125;
   } 
   return lengthPoints;
 }
 
-var totalPoints = (testsPassed,testsFailed, timeLeft, /*answerLength, userCodelength */) => {
-  return (testPoints(testsPassed, testsFailed) + timePoints(timeLeft) /*+ lengthPoints(answerLength, userCodelength)*/);
+var totalPoints = (testsPassed,testsFailed, timeLeft, answerLength, userCodeLength ) => {
+  return (testPoints(testsPassed, testsFailed) + timePoints(timeLeft) + lengthPoints(answerLength, userCodeLength));
 }
 
 
