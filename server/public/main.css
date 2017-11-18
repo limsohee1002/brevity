@@ -113,7 +113,8 @@ nav .brand-logo {
   height: 64px;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  justify-content: space-between;
+  padding: 0 20px;
   margin-bottom: 12px;
   font-size: 16px;
 }
@@ -123,6 +124,14 @@ nav .brand-logo {
   flex-flow: row wrap;
   align-content: center;
   justify-content: center;
+}
+.username {
+  padding-left: 8px;
+}
+@media only screen and (max-width: 992px) {
+  .username {
+    padding-left: 0px;
+  }
 }
 .profile_public {
   padding: 64px;
@@ -164,12 +173,13 @@ nav .brand-logo {
 }
 .auth_error {
   position: fixed;
-  left: calc(50% - 128px);
-  top: 200px;
+  width: 100vw;
+  top: 180px;
+  display: flex;
+  justify-content: center;
 }
 @media only screen and (max-width: 992px) {
   .auth_error {
-    left: calc(50% - 144px);
     top: 100px;
   }
 }

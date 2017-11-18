@@ -17,14 +17,14 @@ class Profile extends React.Component {
 
   handleInputChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
-	}
+  }
 
 	updateProfile(e) {
 		e.preventDefault();
 		var updatedProfile = {
 			name: this.state.username,
 			aboutMe: this.state.aboutMe,
-			profilePicture: this.state.profilePicture
+			profilePicture: this.state.profilePicture.length ? this.state.profilePicture : this.props.user.profilePicture
 		};
 		axios.put(`/users/${this.props.user.username}`, updatedProfile)
       .then((res) => {
@@ -36,7 +36,7 @@ class Profile extends React.Component {
     return (
       <div className="profile_summary">
         <div className="profile-pic">
-          <img src={this.props.user.profilePicture}/>
+          <img className="circle" src={this.props.user.profilePicture}/>
         </div>
         <div className="forms">
           <form>

@@ -13,7 +13,7 @@ const RankBoard = (props) => (
     {props.filteredUsers.map((data, i) => 
       <div key={data._id} className="innerwrapper">
         <div key={data._id + 'photo'} className="profile_picture">
-          <img src={data.profilePicture} alt={data.username} />
+          <img className="circle" src={data.profilePicture} alt={data.username} />
         </div>
         <div key={data._id + 'name'} className="name truncate">
           <Link to={`/profile/${data.username}`}>{data.username}</Link>
