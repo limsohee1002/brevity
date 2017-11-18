@@ -112,36 +112,27 @@ exports.updateUserData = (req, res) => {
 };
 
 exports.updatePoints = (req, res) => { //add points algo calculations here 
-  var points = Math.floor(util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired));
-  Users.findOneAndUpdate({username: req.body.user.username}, {$inc: {totalPoints: points}}, {new: true}, (error, user) => {
+  var points = Math.floor(util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired)) || 0;
+  Users.findOneAndUpdate({ username: req.body.user.username }, { $inc: { totalPoints: points } }, { new: true }, (error, user) => {
     if (error) {res.status(400).send(error)};
     res.send(user)
   });
   console.log('req.body:', req.body)
-  console.log('here', util.totalPoints(req.body.result.passing, req.body.result.failing, req.body.timerExpired))
+  console.log('here', points)
   console.log('passing', req.body.result.failing)
-  // console.log('req.body userController: ', req.body)
 }
 
 // delete '/users/:username' //this has not been tested. 
 exports.deleteUser = (req, res) => {
-  Users.remove ({ username : req.params.username }, (error, user) => {
+  Users.remove({ username: req.params.username }, (error, user) => {
     if (error) { return res.status(400).send(error); }
     res.send(`${user} successfully deleted`);
   });
 };
 
 exports.addGameHistory = (req, res) => {
-  console.log('sadfasdf',req.body)
-  // req.body =  { params: { username: 'sohee', gamename: 'Bubble Sort' } }
-  Users.findOne({username: req.body.params.username}, function(err, user) {
-    if (err) return handleError(err);
-    let add = user.gameHistory
-    add.push(req.body.params.gamename);
-    user.gameHistory = add;
-    user.save(function(err, updatedUsers) {
-      if (err) return handleError(err);
-      res.send(updatedUsers);
-    })
-  })
+  Users.findOneAndUpdate({ username: req.body.params.username }, { $push: { gameHistory: req.body.params.gamename } }, { new: true }, (error, user) => {
+    if (error) res.status(400).send(error);
+    res.send(user);
+  });
 };
