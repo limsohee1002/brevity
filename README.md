@@ -89,3 +89,12 @@ http://hrbrevity.herokuapp.com/
 * Ace Editor
 * Countdown Clock
 * Bycript
+
+## Authors
+* Sohee Lim
+* Samuel Kwak
+* Yusaky Kasahara
+* Jimmy Sandrs-Cannon
+
+## License
+This project is licensed under the MIT License
