@@ -64,7 +64,7 @@ handleSubmit(timerExpired = false) {
   }
 ```
 
-## Getting Started
+## Running locally
 in terminal
 ```
 npm install
@@ -72,6 +72,9 @@ npm run react-dev
 npm start
 ```
 now go to http://localhost:3000/
+
+## Live Website
+http://hrbrevity.herokuapp.com/
 
 ## Tech Stacks
 * Javascript
