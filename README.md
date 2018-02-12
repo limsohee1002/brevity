@@ -76,7 +76,7 @@ now go to http://localhost:3000/
 ## Live Website
 http://hrbrevity.herokuapp.com/
 
-## Tech Stacks
+## Tech Stack
 * Javascript
 * React
 * React Router
