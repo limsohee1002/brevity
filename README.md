@@ -67,9 +67,9 @@ handleSubmit(timerExpired = false) {
 ## Running locally
 in terminal
 ```
-npm install
-npm run react-dev
-npm start
+1. npm install
+2. npm run react-dev
+3. npm start
 ```
 now go to http://localhost:3000/
 
