@@ -4,7 +4,7 @@ This app allows users to solve a coding challenge.  The coding challenge will be
 
 ## Feature
 * code challenge - let users solve a code challenge with limited time
-* score - code challenge score will be calculated based on speed, code accuracy and code simplicity
+* points - code challenge score will be calculated based on speed, code accuracy and code simplicity
 * leaderboard - users can check all user's rank, score and solved challenges
 * search - user can find a specific user on a leaderboard
 * profile - user can check their score and solved challenges as well as change profile picture and description
