@@ -1,6 +1,15 @@
 # brevity
-Coding challenge platform based on speed and accuracy
+Coding challenge platform based on speed and accuracy. 
+This app allows users to solve coding challenge and it will be scored by accuracy, speed, code simplicity
 
+## Feature
+* code challenge - let users solve code challenge in limited time
+* score - code challenge score will be calculated by speed, code accuracy, code simplicity
+* leaderboard - users can check all user's rank, score, solved challenge
+* search - user can find certain user on leaderboard
+* profile - user can check their score, and solved challenge as well as change profile picture, and description
+
+## Demo
 ![brevity-demo](https://user-images.githubusercontent.com/30321742/36118250-60fe683e-100a-11e8-87ee-774dffcac0e5.gif)
 
 ## Code Example
